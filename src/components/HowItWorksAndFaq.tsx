@@ -1,12 +1,6 @@
 import React from 'react'
-import { Sparkles, MessageCircle, Instagram } from 'lucide-react'
-import {
-  HOW_IT_WORKS,
-  FAQ_ITEMS,
-  HERO_ASSETS,
-  INSTAGRAM_URL,
-  WHATSAPP_NUMBER,
-} from '@/data/catalog'
+import { Sparkles, MessageCircle } from 'lucide-react'
+import { HOW_IT_WORKS, FAQ_ITEMS, HERO_ASSETS, WHATSAPP_NUMBER } from '@/data/catalog'
 import {
   Accordion,
   AccordionContent,
@@ -99,16 +93,6 @@ export const HowItWorksAndFaq: React.FC = () => {
           </h2>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto mb-6">
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#B3242E] hover:bg-[#8F1A22] text-[#FAF6EE] text-sm font-semibold shadow-md hover:shadow-lg transition-all active:scale-95"
-            >
-              <Instagram className="w-4 h-4" />
-              <span>Fale com a Carol pelo Instagram</span>
-            </a>
-
             <a
               href={whatsappUrl}
               target="_blank"

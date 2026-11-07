@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Sparkles, MessageCircle, ShoppingBag, Instagram } from 'lucide-react'
-import { INSTAGRAM_URL, WHATSAPP_DISPLAY } from '@/data/catalog'
+import { Sparkles, ShoppingBag } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 
 export const Header: React.FC = () => {
@@ -92,17 +91,6 @@ export const Header: React.FC = () => {
                 <span>{totalCount}</span>
               </button>
             )}
-
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 text-xs text-[#5A4B42] hover:text-[#B3242E] px-2.5 py-1.5 rounded-full transition-colors"
-              title="Instagram @caroldominguesconfeitaria"
-            >
-              <Instagram className="w-3.5 h-3.5" />
-              <span>@caroldomingues</span>
-            </a>
 
             <a
               href="#cardapio"

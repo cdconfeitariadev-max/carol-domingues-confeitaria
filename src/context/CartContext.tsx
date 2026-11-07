@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useMemo } from 'react'
-import { Product, Dessert, WHATSAPP_NUMBER, INSTAGRAM_URL } from '@/data/catalog'
+import { Product, Dessert } from '@/data/catalog'
+import { buildWhatsappUrl } from '@/components/WhatsAppOrderButton'
 
 export interface CartItem {
   product: Product
@@ -20,7 +21,6 @@ interface CartContextType {
   formatCurrency: (value: number) => string
   generateOrderText: () => string
   whatsappUrl: string
-  instagramUrl: string
   isSelectionOpen: boolean
   setIsSelectionOpen: (open: boolean) => void
 }
@@ -149,7 +149,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     const lines: string[] = []
-    lines.push('Olá, Carol! Montei minha seleção do Cardápio de Natal 2026:')
+    lines.push('Olá, Carol! Quero pedir:')
     lines.push('')
 
     items.forEach((item) => {
@@ -157,27 +157,19 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       lines.push(
         `• ${item.quantity}x ${item.product.name} (${item.product.weight}) - ${formatCurrency(subtotal)}`,
       )
-      if (item.product.tag) {
-        lines.push(`  Sabor/Detalhe: ${item.product.tag}`)
-      }
     })
 
     lines.push('')
     lines.push(
-      `Total estimado: ${formatCurrency(totalPrice)} (${totalCount} ${totalCount === 1 ? 'item' : 'itens'})`,
+      `Total: ${formatCurrency(totalPrice)} (${totalCount} ${totalCount === 1 ? 'item' : 'itens'})`,
     )
-    lines.push('')
-    lines.push('Gostaria de verificar a disponibilidade e as opções de retirada ou entrega!')
 
     return lines.join('\n')
   }
 
   const whatsappUrl = useMemo(() => {
-    const text = encodeURIComponent(generateOrderText())
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`
+    return buildWhatsappUrl(generateOrderText())
   }, [items, totalPrice, totalCount])
-
-  const instagramUrl = INSTAGRAM_URL
 
   return (
     <CartContext.Provider
@@ -195,7 +187,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         formatCurrency,
         generateOrderText,
         whatsappUrl,
-        instagramUrl,
         isSelectionOpen,
         setIsSelectionOpen,
       }}

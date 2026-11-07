@@ -2,6 +2,7 @@ import React from 'react'
 import { Plus, Check, Gift } from 'lucide-react'
 import { GIFTS, Product } from '@/data/catalog'
 import { useCart } from '@/context/CartContext'
+import { WhatsAppOrderButton, buildProductOrderMessage } from '@/components/WhatsAppOrderButton'
 
 export const GiftsSection: React.FC = () => {
   const { addItem, getItemQuantity, formatCurrency } = useCart()
@@ -52,27 +53,34 @@ export const GiftsSection: React.FC = () => {
           <div className="pt-3 border-t border-[#F2ECE3] flex items-center justify-between gap-3">
             <span className="text-xs text-[#8A7566] font-medium">{product.weight}</span>
 
-            <button
-              onClick={() => addItem(product)}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all active:scale-95 ${
-                isAdded
-                  ? 'bg-[#B3242E] text-white shadow-sm'
-                  : 'bg-[#FAF6EE] text-[#5A4538] hover:bg-[#B3242E] hover:text-white border border-[#DFD3C4]'
-              }`}
-              aria-label={`Adicionar ${product.name}`}
-            >
-              {isAdded ? (
-                <>
-                  <Check className="w-3.5 h-3.5" />
-                  <span>Adicionado ({qty})</span>
-                </>
-              ) : (
-                <>
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>Adicionar</span>
-                </>
-              )}
-            </button>
+            <div className="flex items-center gap-2">
+              <WhatsAppOrderButton
+                message={buildProductOrderMessage(product.name)}
+                ariaLabel={`Pedir ${product.name} pelo WhatsApp`}
+                className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all active:scale-95 bg-[#25D366] hover:bg-[#1EBE5D] text-white shadow-sm"
+              />
+              <button
+                onClick={() => addItem(product)}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all active:scale-95 ${
+                  isAdded
+                    ? 'bg-[#B3242E] text-white shadow-sm'
+                    : 'bg-[#FAF6EE] text-[#5A4538] hover:bg-[#B3242E] hover:text-white border border-[#DFD3C4]'
+                }`}
+                aria-label={`Adicionar ${product.name}`}
+              >
+                {isAdded ? (
+                  <>
+                    <Check className="w-3.5 h-3.5" />
+                    <span>Adicionado ({qty})</span>
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Adicionar</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>

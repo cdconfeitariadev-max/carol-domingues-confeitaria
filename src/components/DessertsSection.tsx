@@ -1,7 +1,8 @@
 import React from 'react'
-import { Plus, Check, Sparkles, Instagram } from 'lucide-react'
-import { DESSERTS, Dessert, DessertSize, INSTAGRAM_URL } from '@/data/catalog'
+import { Plus, Check, Sparkles } from 'lucide-react'
+import { DESSERTS, Dessert, DessertSize } from '@/data/catalog'
 import { useCart } from '@/context/CartContext'
+import { WhatsAppOrderButton, buildProductOrderMessage } from '@/components/WhatsAppOrderButton'
 
 export const DessertsSection: React.FC = () => {
   const { addDessert, getDessertQuantity, formatCurrency } = useCart()
@@ -26,6 +27,11 @@ export const DessertsSection: React.FC = () => {
           <span className="font-serif text-lg font-bold text-[#B3242E] whitespace-nowrap">
             {formatCurrency(size.price)}
           </span>
+          <WhatsAppOrderButton
+            message={buildProductOrderMessage(dessert.name, size.label)}
+            ariaLabel={`Pedir ${dessert.name} (${size.label}) pelo WhatsApp`}
+            className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold transition-all active:scale-95 bg-[#25D366] hover:bg-[#1EBE5D] text-white shadow-sm"
+          />
           <button
             onClick={() => addDessert(dessert, size.id)}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all active:scale-95 ${
@@ -116,21 +122,12 @@ export const DessertsSection: React.FC = () => {
           {DESSERTS.map(renderCard)}
         </div>
 
-        {/* Bottom Callout & Instagram Button */}
+        {/* Bottom Callout */}
         <div className="max-w-2xl mx-auto bg-white rounded-2xl p-6 sm:p-8 border border-[#EADFCF] shadow-sm text-center">
           <Sparkles className="w-6 h-6 text-[#D9A441] mx-auto mb-2" />
-          <p className="text-sm sm:text-base font-medium text-[#4A3B32] mb-4">
+          <p className="text-sm sm:text-base font-medium text-[#4A3B32]">
             Consulte sabores, tamanhos e valores diretamente com a Carol.
           </p>
-          <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#B3242E] hover:bg-[#8F1A22] text-[#FAF6EE] text-xs sm:text-sm font-semibold shadow transition-all active:scale-95"
-          >
-            <Instagram className="w-4 h-4" />
-            <span>Consultar opções</span>
-          </a>
         </div>
       </div>
     </section>

@@ -1,18 +1,7 @@
-import React, { useState } from 'react'
-import {
-  ShoppingBag,
-  X,
-  Plus,
-  Minus,
-  Trash2,
-  Copy,
-  Check,
-  Instagram,
-  MessageCircle,
-  ChevronUp,
-} from 'lucide-react'
+import React from 'react'
+import { ShoppingBag, X, Plus, Minus, Trash2, MessageCircle, ChevronUp } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
-import { useToast } from '@/hooks/use-toast'
+import { buildWhatsappUrl } from '@/components/WhatsAppOrderButton'
 
 export const FloatingSelectionBar: React.FC = () => {
   const {
@@ -24,26 +13,11 @@ export const FloatingSelectionBar: React.FC = () => {
     removeItem,
     clearCart,
     generateOrderText,
-    whatsappUrl,
-    instagramUrl,
     isSelectionOpen,
     setIsSelectionOpen,
   } = useCart()
 
-  const { toast } = useToast()
-  const [copied, setCopied] = useState(false)
-
-  const handleCopy = () => {
-    const text = generateOrderText()
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true)
-      toast({
-        title: 'Lista copiada!',
-        description: 'Cole a mensagem no Instagram ou WhatsApp da Carol.',
-      })
-      setTimeout(() => setCopied(false), 3000)
-    })
-  }
+  const whatsappSelectionUrl = buildWhatsappUrl(generateOrderText())
 
   // Floating trigger bar when collapsed (only visible if there are items)
   return (
@@ -201,44 +175,15 @@ export const FloatingSelectionBar: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-2.5">
-                  <button
-                    onClick={handleCopy}
-                    className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-[#FAF6EE] hover:bg-[#F0E5D4] text-[#4A3B32] text-xs sm:text-sm font-semibold border border-[#DACDC0] transition-colors"
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="w-4 h-4 text-emerald-600" />
-                        <span>Lista copiada!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-4 h-4" />
-                        <span>Copiar lista</span>
-                      </>
-                    )}
-                  </button>
-
-                  <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs sm:text-sm font-semibold shadow transition-all active:scale-95"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>Enviar no WhatsApp</span>
-                  </a>
-
-                  <a
-                    href={instagramUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-[#B3242E] hover:bg-[#8F1A22] text-white text-xs sm:text-sm font-semibold shadow transition-all active:scale-95"
-                  >
-                    <Instagram className="w-4 h-4" />
-                    <span>Abrir Instagram</span>
-                  </a>
-                </div>
+                <a
+                  href={whatsappSelectionUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs sm:text-sm font-semibold shadow transition-all active:scale-95"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Enviar seleção pelo WhatsApp</span>
+                </a>
 
                 <div className="flex items-center justify-between pt-1">
                   <button
