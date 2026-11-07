@@ -5,11 +5,18 @@ export interface Product {
   price: number
   weight: string
   tag: string
-  category: 'classicos' | 'especiais' | 'presentes'
+  category: 'classicos' | 'especiais' | 'presentes' | 'sobremesas'
   flavorCategory?: 'chocolate' | 'fruta' | 'ninho'
   description: string
   image: string
   highlight?: boolean
+}
+
+export interface DessertSize {
+  id: 'unico' | 'mini' | 'grande'
+  label: string
+  serves: string
+  price: number
 }
 
 export interface Dessert {
@@ -18,6 +25,7 @@ export interface Dessert {
   image: string
   alt: string
   description?: string
+  sizes: DessertSize[]
 }
 
 export interface FaqItem {
@@ -158,38 +166,57 @@ export const PANETTONES: Product[] = [
 export const DESSERTS: Dessert[] = [
   {
     id: 'sobremesa-guirlanda',
-    name: 'Guirlanda decorada',
+    name: 'Guirlanda de Brownie',
     image:
       'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/sobremesa-guirlanda-v10.webp',
     alt: 'Sobremesa em formato de guirlanda, com laço e decoração, fotografada pela confeitaria',
     description:
-      'Sobremesa artesanal em formato de guirlanda natalina, decorada com laço vermelho e acabamento refinado.',
+      'Brownie, brigadeiro ao leite, decorada com morangos, nozes, brigadeiros e cerejas.',
+    sizes: [
+      {
+        id: 'unico',
+        label: 'Único',
+        serves: 'Serve 10 pessoas',
+        price: 129.9,
+      },
+    ],
   },
   {
     id: 'sobremesa-camadas',
-    name: 'Sobremesa em camadas',
+    name: 'Sobremesa Natalina',
     image:
       'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/sobremesa-camadas-v10.webp',
     alt: 'Sobremesa em recipiente de vidro, com camadas aparentes e decoração no topo',
     description:
-      'Em taça ou travessa de vidro com camadas generosas de cremes nobres e montagem sofisticada.',
+      'Mousse de chocolate meio amargo, geleia de frutas vermelhas artesanal e massa de chocotone.',
+    sizes: [
+      { id: 'mini', label: 'Mini', serves: '4 pessoas', price: 69.9 },
+      { id: 'grande', label: 'Grande', serves: '10 a 15 pessoas', price: 189.9 },
+    ],
   },
   {
     id: 'sobremesa-decorada',
-    name: 'Sobremesa decorada',
+    name: 'Folhata de Morango',
     image:
       'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/sobremesa-decorada-v10.webp',
     alt: 'Outra sobremesa em recipiente de vidro, decorada para o Natal',
-    description: 'Criação especial com decoração temática natalina e recheios autorais da Carol.',
+    description: 'Massa folhada, creme de 3 leites, leite ninho e morangos.',
+    sizes: [
+      { id: 'mini', label: 'Mini', serves: '4 pessoas', price: 69.9 },
+      { id: 'grande', label: 'Grande', serves: '10 a 15 pessoas', price: 189.9 },
+    ],
   },
   {
     id: 'sobremesa-branca',
-    name: 'Sobremesa com decoração branca',
+    name: 'Pavê de Abacaxi com Coco',
     image:
       'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/sobremesa-branca-v10.webp',
     alt: 'Sobremesa em recipiente de vidro, com decoração branca e frutas amarelas no topo',
-    description:
-      'Sobremesa elegante com cremes suaves, toque de frutas amarelas e decoração impecável.',
+    description: 'Mousse de abacaxi com coco e bolacha champanhe umedecida no licor de chocolate.',
+    sizes: [
+      { id: 'mini', label: 'Mini', serves: '4 pessoas', price: 69.9 },
+      { id: 'grande', label: 'Grande', serves: '', price: 189.9 },
+    ],
   },
 ]
 

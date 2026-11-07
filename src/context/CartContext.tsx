@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, useMemo } from 'react'
-import { Product, WHATSAPP_NUMBER, INSTAGRAM_URL } from '@/data/catalog'
+import { Product, Dessert, WHATSAPP_NUMBER, INSTAGRAM_URL } from '@/data/catalog'
 
 export interface CartItem {
   product: Product
@@ -9,9 +9,11 @@ export interface CartItem {
 interface CartContextType {
   items: CartItem[]
   addItem: (product: Product) => void
+  addDessert: (dessert: Dessert, sizeId: Dessert['sizes'][number]['id']) => void
   removeItem: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
   getItemQuantity: (productId: string) => number
+  getDessertQuantity: (dessertId: string, sizeId: string) => number
   clearCart: () => void
   totalCount: number
   totalPrice: number
@@ -65,6 +67,42 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       return [...prev, { product, quantity: 1 }]
     })
+  }
+
+  const addDessert: CartContextType['addDessert'] = (dessert, sizeId) => {
+    const size = dessert.sizes.find((s) => s.id === sizeId)
+    if (!size) return
+    const id = `${dessert.id}--${sizeId}`
+    setItems((prev) => {
+      const existing = prev.find((item) => item.product.id === id)
+      if (existing) {
+        return prev.map((item) =>
+          item.product.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+        )
+      }
+      const label = size.serves ? `${size.label} (${size.serves})` : size.label
+      return [
+        ...prev,
+        {
+          product: {
+            id,
+            name: `${dessert.name} — ${size.label}`,
+            price: size.price,
+            weight: size.serves,
+            tag: label,
+            category: 'sobremesas',
+            description: dessert.description || dessert.alt,
+            image: dessert.image,
+          },
+          quantity: 1,
+        },
+      ]
+    })
+  }
+
+  const getDessertQuantity = (dessertId: string, sizeId: string) => {
+    const found = items.find((item) => item.product.id === `${dessertId}--${sizeId}`)
+    return found ? found.quantity : 0
   }
 
   const removeItem = (productId: string) => {
@@ -146,9 +184,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         items,
         addItem,
+        addDessert,
         removeItem,
         updateQuantity,
         getItemQuantity,
+        getDessertQuantity,
         clearCart,
         totalCount,
         totalPrice,

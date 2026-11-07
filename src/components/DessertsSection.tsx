@@ -1,9 +1,98 @@
-import React, { useState } from 'react'
-import { Instagram, ZoomIn, X, Sparkles } from 'lucide-react'
-import { DESSERTS, Dessert, INSTAGRAM_URL } from '@/data/catalog'
+import React from 'react'
+import { Plus, Check, Sparkles, Instagram } from 'lucide-react'
+import { DESSERTS, Dessert, DessertSize, INSTAGRAM_URL } from '@/data/catalog'
+import { useCart } from '@/context/CartContext'
 
 export const DessertsSection: React.FC = () => {
-  const [selectedDessert, setSelectedDessert] = useState<Dessert | null>(null)
+  const { addDessert, getDessertQuantity, formatCurrency } = useCart()
+
+  const renderSizeRow = (dessert: Dessert, size: DessertSize) => {
+    const qty = getDessertQuantity(dessert.id, size.id)
+    const isAdded = qty > 0
+
+    return (
+      <div
+        key={size.id}
+        className="flex items-center justify-between gap-3 pt-3 border-t border-[#F2ECE3]"
+      >
+        <div className="flex items-baseline gap-2 min-w-0">
+          <span className="px-2.5 py-1 rounded-full bg-[#F4EDE2] text-[10px] font-bold text-[#84222A] tracking-wide uppercase shadow-sm">
+            {size.label}
+          </span>
+          <span className="text-[11px] text-[#8A7566] truncate">{size.serves}</span>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="font-serif text-lg font-bold text-[#B3242E] whitespace-nowrap">
+            {formatCurrency(size.price)}
+          </span>
+          <button
+            onClick={() => addDessert(dessert, size.id)}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all active:scale-95 ${
+              isAdded
+                ? 'bg-[#B3242E] text-white shadow-sm'
+                : 'bg-[#FAF6EE] text-[#5A4538] hover:bg-[#B3242E] hover:text-white border border-[#DFD3C4]'
+            }`}
+            aria-label={`Adicionar ${dessert.name} — ${size.label}`}
+          >
+            {isAdded ? (
+              <>
+                <Check className="w-3.5 h-3.5" />
+                <span>{qty}</span>
+              </>
+            ) : (
+              <>
+                <Plus className="w-3.5 h-3.5" />
+                <span>Adicionar</span>
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  const renderCard = (dessert: Dessert) => {
+    return (
+      <div
+        key={dessert.id}
+        className="group bg-white rounded-2xl border border-[#E9DFD3] shadow-sm transition-all duration-300 flex flex-col overflow-hidden hover:shadow-xl hover:-translate-y-1"
+      >
+        {/* Product Image */}
+        <div className="relative aspect-square w-full bg-[#F6EFE5] overflow-hidden">
+          <img
+            src={dessert.image}
+            alt={dessert.alt}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute top-3 left-3">
+            <span className="px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-sm text-[11px] font-bold text-[#84222A] tracking-wide uppercase shadow-sm">
+              Sobremesa
+            </span>
+          </div>
+          <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 text-white text-[10px] font-medium px-2.5 py-1 rounded-full backdrop-blur-sm">
+            Conheça esta sobremesa
+          </div>
+        </div>
+
+        {/* Card Details */}
+        <div className="p-5 flex-1 flex flex-col">
+          <h4 className="font-serif text-xl sm:text-2xl font-bold text-[#342822] group-hover:text-[#B3242E] transition-colors">
+            {dessert.name}
+          </h4>
+          <p className="text-xs sm:text-sm text-[#665447] leading-relaxed mt-2 mb-4">
+            {dessert.description || dessert.alt}
+          </p>
+
+          {/* Sizes + Prices + Add buttons */}
+          <div className="mt-auto flex flex-col gap-3">
+            {dessert.sizes.map((size) => renderSizeRow(dessert, size))}
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <section id="sobremesas" className="py-16 sm:py-20 bg-[#FAF6EE] scroll-mt-14">
@@ -17,45 +106,14 @@ export const DessertsSection: React.FC = () => {
             As sobremesas.
           </h2>
           <p className="text-sm sm:text-base text-[#665447]">
-            Outras criações da confeitaria para o Natal. Toque nas fotos para ampliar.
+            Outras criações da confeitaria para o Natal. Toque em <strong>Adicionar</strong> para
+            incluir na sua seleção.
           </p>
         </div>
 
-        {/* 4 Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {DESSERTS.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => setSelectedDessert(item)}
-              className="group cursor-pointer bg-white rounded-2xl overflow-hidden border border-[#E9DFD3] shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col"
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') setSelectedDessert(item)
-              }}
-            >
-              <div className="relative aspect-square w-full bg-[#F6EFE5] overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.alt}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="px-3 py-1.5 rounded-full bg-white/90 text-[#342822] text-xs font-semibold flex items-center gap-1.5 shadow-md">
-                    <ZoomIn className="w-3.5 h-3.5" />
-                    Ampliar foto
-                  </span>
-                </div>
-              </div>
-              <div className="p-4 text-center flex-1 flex flex-col justify-center">
-                <h3 className="font-serif text-lg sm:text-xl font-bold text-[#342822] group-hover:text-[#B3242E] transition-colors">
-                  {item.name}
-                </h3>
-                <span className="text-xs text-[#8A7566] mt-1">Criação exclusiva</span>
-              </div>
-            </div>
-          ))}
+        {/* 4 Cards Grid — mesmo estilo dos panetones */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 mb-12">
+          {DESSERTS.map(renderCard)}
         </div>
 
         {/* Bottom Callout & Instagram Button */}
@@ -75,51 +133,6 @@ export const DessertsSection: React.FC = () => {
           </a>
         </div>
       </div>
-
-      {/* Lightbox Modal */}
-      {selectedDessert && (
-        <div
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in"
-          onClick={() => setSelectedDessert(null)}
-        >
-          <div
-            className="relative max-w-2xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl border border-white/20"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setSelectedDessert(null)}
-              className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/60 text-white hover:bg-black/80 flex items-center justify-center transition-colors"
-              aria-label="Fechar ampliação"
-            >
-              <X className="w-4 h-4" />
-            </button>
-            <div className="relative aspect-4/3 w-full bg-black">
-              <img
-                src={selectedDessert.image}
-                alt={selectedDessert.alt}
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div className="p-6 text-center">
-              <h3 className="font-serif text-2xl font-bold text-[#342822] mb-2">
-                {selectedDessert.name}
-              </h3>
-              <p className="text-sm text-[#665447] mb-4">
-                {selectedDessert.description || selectedDessert.alt}
-              </p>
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#B3242E] text-white text-xs font-semibold hover:bg-[#8F1A22] transition-colors"
-              >
-                <Instagram className="w-3.5 h-3.5" />
-                <span>Consultar valores com a Carol</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }
