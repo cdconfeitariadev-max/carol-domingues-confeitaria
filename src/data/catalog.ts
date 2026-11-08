@@ -1,3 +1,5 @@
+import carolHeroImg from '../assets/carol-domingues-confeitaria-f0d07.png'
+
 export interface Product {
   id: string
   number?: string
@@ -37,8 +39,7 @@ export const INSTAGRAM_URL = 'https://www.instagram.com/caroldominguesconfeitari
 export const WHATSAPP_NUMBER = '5517991353873'
 export const WHATSAPP_DISPLAY = '(17) 99135-3873'
 export const HERO_ASSETS = {
-  carolHero:
-    'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/carol-colecao.webp',
+  carolHero: carolHeroImg,
   mascoteOi:
     'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/brand/mascote-oi.webp',
   mascoteNatal:
