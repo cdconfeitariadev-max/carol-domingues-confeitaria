@@ -36,9 +36,6 @@ export interface FaqItem {
 export const INSTAGRAM_URL = 'https://www.instagram.com/caroldominguesconfeitaria/'
 export const WHATSAPP_NUMBER = '5517991353873'
 export const WHATSAPP_DISPLAY = '(17) 99135-3873'
-export const PDF_CATALOG_URL =
-  'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/cardapio.pdf'
-
 export const HERO_ASSETS = {
   carolHero:
     'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/carol-colecao.webp',
