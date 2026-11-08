@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react'
 import { Plus, Check, Sparkles, Heart } from 'lucide-react'
-import { PANETTONES, Product } from '@/data/catalog'
+import { PANETTONES, Product, productImages } from '@/data/catalog'
 import { useCart } from '@/context/CartContext'
 import { WhatsAppOrderButton, buildProductOrderMessage } from '@/components/WhatsAppOrderButton'
+import { ProductGallery, ProductGalleryDialog } from '@/components/ProductGallery'
 
 export const PanettonesSection: React.FC = () => {
   const [filterCategory, setFilterCategory] = useState<'all' | 'classicos' | 'especiais'>('all')
@@ -48,13 +49,11 @@ export const PanettonesSection: React.FC = () => {
       >
         {/* Product Image */}
         <div className="relative aspect-square w-full bg-[#F6EFE5] overflow-hidden">
-          <img
-            src={product.image}
+          <ProductGallery
+            images={productImages(product)}
             alt={`${product.name}, fotografia do produto da confeitaria`}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
           />
-          <div className="absolute top-3 left-3 flex flex-col gap-1 items-start">
+          <div className="absolute top-3 left-3 z-10 pointer-events-none flex flex-col gap-1 items-start">
             <span className="px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-sm text-[11px] font-bold text-[#84222A] tracking-wide uppercase shadow-sm">
               {product.weight}
             </span>
@@ -65,9 +64,12 @@ export const PanettonesSection: React.FC = () => {
             )}
           </div>
 
-          <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 text-white text-[10px] font-medium px-2.5 py-1 rounded-full backdrop-blur-sm">
-            Conheça este sabor
-          </div>
+          <ProductGalleryDialog
+            images={productImages(product)}
+            alt={`${product.name}, fotografia do produto da confeitaria`}
+            title={product.name}
+            triggerLabel="Conheça este sabor"
+          />
         </div>
 
         {/* Product Details */}

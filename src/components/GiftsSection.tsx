@@ -1,8 +1,9 @@
 import React from 'react'
 import { Plus, Check, Gift } from 'lucide-react'
-import { GIFTS, Product } from '@/data/catalog'
+import { GIFTS, Product, productImages } from '@/data/catalog'
 import { useCart } from '@/context/CartContext'
 import { WhatsAppOrderButton, buildProductOrderMessage } from '@/components/WhatsAppOrderButton'
+import { ProductGallery } from '@/components/ProductGallery'
 
 export const GiftsSection: React.FC = () => {
   const { addItem, getItemQuantity, formatCurrency } = useCart()
@@ -21,13 +22,8 @@ export const GiftsSection: React.FC = () => {
         }`}
       >
         <div className="relative aspect-square w-full bg-[#F6EFE5] overflow-hidden">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
-          <div className="absolute top-3 left-3">
+          <ProductGallery images={productImages(product)} alt={product.name} />
+          <div className="absolute top-3 left-3 z-10 pointer-events-none">
             <span className="px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-sm text-[11px] font-bold text-[#84222A] tracking-wide uppercase shadow-sm">
               {product.weight}
             </span>

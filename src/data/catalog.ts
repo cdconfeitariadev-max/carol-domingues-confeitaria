@@ -1,4 +1,5 @@
 import carolHeroImg from '../assets/carol-domingues-confeitaria-f0d07.png'
+import brigadeiroBrancoFatiado from '../assets/04brigadeiro-branco-8a883.png'
 
 export interface Product {
   id: string
@@ -10,7 +11,10 @@ export interface Product {
   category: 'classicos' | 'especiais' | 'presentes' | 'sobremesas'
   flavorCategory?: 'chocolate' | 'fruta' | 'ninho'
   description: string
+  /** Foto de capa do card (primeira da galeria). */
   image: string
+  /** Galeria completa, na ordem de exibição. Quando ausente, usa só `image`. */
+  images?: string[]
   highlight?: boolean
 }
 
@@ -25,10 +29,21 @@ export interface Dessert {
   id: string
   name: string
   image: string
+  images?: string[]
   alt: string
   description?: string
   sizes: DessertSize[]
 }
+
+const BRIGADEIRO_BRANCO_FOTOS = [
+  'https://dagtlwojkqyivnjgveda.supabase.co/storage/v1/object/public/message-attachments/e01520b9-84b8-418a-9dc1-1d4e8a2f02db/01brigadeiro-branco-6ce5a.png',
+  'https://dagtlwojkqyivnjgveda.supabase.co/storage/v1/object/public/message-attachments/e01520b9-84b8-418a-9dc1-1d4e8a2f02db/02brigadeiro-branco-4cd98.png',
+  'https://dagtlwojkqyivnjgveda.supabase.co/storage/v1/object/public/message-attachments/e01520b9-84b8-418a-9dc1-1d4e8a2f02db/03brigadeiro-branco-28bfb.png',
+]
+
+/** Lista de fotos do produto para a galeria (sempre ao menos a foto de capa). */
+export const productImages = (item: { image: string; images?: string[] }): string[] =>
+  item.images && item.images.length > 0 ? item.images : [item.image]
 
 export interface FaqItem {
   question: string
@@ -70,8 +85,8 @@ export const PANETTONES: Product[] = [
     flavorCategory: 'fruta',
     description:
       'Massa de panetone com frutas cristalizadas, recheio de brigadeiro branco e cobertura de chocolate branco nobre com frutas cristalizadas.',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/frutas-v10.webp',
+    image: BRIGADEIRO_BRANCO_FOTOS[0],
+    images: [...BRIGADEIRO_BRANCO_FOTOS.slice(0, 3), brigadeiroBrancoFatiado],
   },
   {
     id: 'chocotone-brigadeiro',

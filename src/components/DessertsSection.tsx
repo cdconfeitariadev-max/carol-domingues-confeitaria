@@ -1,8 +1,9 @@
 import React from 'react'
 import { Plus, Check, Sparkles } from 'lucide-react'
-import { DESSERTS, Dessert, DessertSize } from '@/data/catalog'
+import { DESSERTS, Dessert, DessertSize, productImages } from '@/data/catalog'
 import { useCart } from '@/context/CartContext'
 import { WhatsAppOrderButton, buildProductOrderMessage } from '@/components/WhatsAppOrderButton'
+import { ProductGallery, ProductGalleryDialog } from '@/components/ProductGallery'
 
 export const DessertsSection: React.FC = () => {
   const { addDessert, getDessertQuantity, formatCurrency } = useCart()
@@ -66,20 +67,18 @@ export const DessertsSection: React.FC = () => {
       >
         {/* Product Image */}
         <div className="relative aspect-square w-full bg-[#F6EFE5] overflow-hidden">
-          <img
-            src={dessert.image}
-            alt={dessert.alt}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
-          <div className="absolute top-3 left-3">
+          <ProductGallery images={productImages(dessert)} alt={dessert.alt} />
+          <div className="absolute top-3 left-3 z-10 pointer-events-none">
             <span className="px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-sm text-[11px] font-bold text-[#84222A] tracking-wide uppercase shadow-sm">
               Sobremesa
             </span>
           </div>
-          <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 text-white text-[10px] font-medium px-2.5 py-1 rounded-full backdrop-blur-sm">
-            Conheça esta sobremesa
-          </div>
+          <ProductGalleryDialog
+            images={productImages(dessert)}
+            alt={dessert.alt}
+            title={dessert.name}
+            triggerLabel="Conheça esta sobremesa"
+          />
         </div>
 
         {/* Card Details */}
