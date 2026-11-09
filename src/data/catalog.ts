@@ -1,7 +1,7 @@
 import carolHeroImg from '../assets/carol-domingues-confeitaria-f0d07.png'
-import brigadeiroBranco01 from '../assets/01brigadeiro-branco-74469.png'
-import brigadeiroBranco02 from '../assets/02brigadeiro-branco-83f97.png'
-import brigadeiroBranco03 from '../assets/03brigadeiro-branco-358df.png'
+import brigadeiroBranco01 from '../assets/01brigadeiro-branco-83ebd.png'
+import brigadeiroBranco02 from '../assets/02brigadeiro-branco-6bdad.png'
+import brigadeiroBranco03 from '../assets/03brigadeiro-branco-014be.png'
 import brigadeiroBrancoFatiado from '../assets/04brigadeiro-branco-a1dea.png'
 
 export interface Product {
