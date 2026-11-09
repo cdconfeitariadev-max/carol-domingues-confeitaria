@@ -1,6 +1,7 @@
 import React from 'react'
 import { Sparkles, MessageCircle } from 'lucide-react'
-import { HOW_IT_WORKS, FAQ_ITEMS, HERO_ASSETS, WHATSAPP_NUMBER } from '@/data/catalog'
+import { HOW_IT_WORKS, FAQ_ITEMS, WHATSAPP_NUMBER } from '@/data/catalog'
+import mascotePresente from '@/assets/saco-confeitarpresente-2b14a.png'
 import {
   Accordion,
   AccordionContent,
@@ -110,8 +111,8 @@ export const HowItWorksAndFaq: React.FC = () => {
           </p>
 
           <img
-            src={HERO_ASSETS.mascoteNatal}
-            alt="Mascote Carol Domingues Natalina"
+            src={mascotePresente}
+            alt="Mascote Carol Domingues segurando um presente de Natal"
             className="w-24 h-24 object-contain"
             loading="lazy"
           />
