@@ -38,7 +38,13 @@ export interface Dessert {
   sizes: DessertSize[]
 }
 
-const BRIGADEIRO_BRANCO_FOTOS = [brigadeiroBranco01, brigadeiroBranco02, brigadeiroBranco03]
+/** Galeria do Brigadeiro Branco, na ordem: 01 capa, 02 close do topo, 03 vista de cima, 04 fatiado. */
+const BRIGADEIRO_BRANCO_FOTOS = [
+  brigadeiroBranco01,
+  brigadeiroBranco02,
+  brigadeiroBranco03,
+  brigadeiroBrancoFatiado,
+]
 
 /** Lista de fotos do produto para a galeria (sempre ao menos a foto de capa). */
 export const productImages = (item: { image: string; images?: string[] }): string[] =>
@@ -85,7 +91,7 @@ export const PANETTONES: Product[] = [
     description:
       'Massa de panetone com frutas cristalizadas, recheio de brigadeiro branco e cobertura de chocolate branco nobre com frutas cristalizadas.',
     image: BRIGADEIRO_BRANCO_FOTOS[0],
-    images: [...BRIGADEIRO_BRANCO_FOTOS.slice(0, 3), brigadeiroBrancoFatiado],
+    images: BRIGADEIRO_BRANCO_FOTOS,
   },
   {
     id: 'chocotone-brigadeiro',
