@@ -39,7 +39,11 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ images, alt }) =
           className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 ${
             i === index ? 'opacity-100 group-hover:scale-105' : 'opacity-0'
           }`}
-          loading="lazy"
+          /* A capa carrega eager: com lazy, imagens empilhadas com opacity-0 podem
+             nunca disparar o download em alguns navegadores/webviews. */
+          loading={i === 0 ? 'eager' : 'lazy'}
+          /* Evita que hotlinks externos bloqueiem a imagem pelo referrer. */
+          referrerPolicy="no-referrer"
           draggable={false}
         />
       ))}
