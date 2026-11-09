@@ -1,6 +1,7 @@
 import React from 'react'
 import { Sparkles, ArrowDown } from 'lucide-react'
 import { HERO_ASSETS, FLAVOR_TICKER } from '@/data/catalog'
+import mascoteAcenando from '@/assets/saco-confeitar-0d4b0.png'
 
 export const Hero: React.FC = () => {
   return (
@@ -89,8 +90,8 @@ export const Hero: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 mt-12 sm:mt-16">
         <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-[#E9E0D4] flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
           <img
-            src={HERO_ASSETS.mascoteOi}
-            alt="Mascote Carol Domingues dando oi"
+            src={mascoteAcenando}
+            alt="Mascote Carol Domingues acenando com saco de confeitar"
             className="w-20 h-20 sm:w-24 sm:h-24 object-contain shrink-0"
           />
           <div className="space-y-2 flex-1">
