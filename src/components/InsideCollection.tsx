@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FileText, Sparkles, CheckCircle2, Eye, Loader2 } from 'lucide-react'
 import { INSIDE_COLLECTION_TABS } from '@/data/catalog'
 import { downloadCardapioPdf } from '@/lib/cardapioPdf'
-import panetonesColecaoImg from '@/assets/mini-panetones-festivos-em-composicao-natalina-c99ec.png'
+import panetonesColecaoImg from '@/assets/panetone-trufado-com-chocolate-e-creme-0e0e3.png'
 
 export const InsideCollection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'recheios' | 'coberturas' | 'sabores'>('recheios')
@@ -34,7 +34,7 @@ export const InsideCollection: React.FC = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-white group">
               <img
                 src={panetonesColecaoImg}
-                alt="Quatro panetones decorados da coleção sobre a mesa natalina"
+                alt="Panetone decorado cortado sobre suporte branco, com fatia servida no prato sobre pano xadrez natalino"
                 className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
               />
