@@ -48,7 +48,7 @@ export const PanettonesSection: React.FC = () => {
         }`}
       >
         {/* Product Image */}
-        <div className="relative aspect-square w-full bg-[#F6EFE5] overflow-hidden">
+        <div className="relative aspect-square min-h-[14rem] w-full bg-[#F6EFE5] overflow-hidden">
           <ProductGallery
             images={productImages(product)}
             alt={`${product.name}, fotografia do produto da confeitaria`}

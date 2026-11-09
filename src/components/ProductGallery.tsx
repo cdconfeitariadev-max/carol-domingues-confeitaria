@@ -111,7 +111,7 @@ export const ProductGalleryDialog: React.FC<ProductGalleryDialogProps> = ({
     </DialogTrigger>
     <DialogContent className="max-w-md p-4 sm:p-6">
       <DialogTitle className="font-serif text-xl font-bold text-[#342822]">{title}</DialogTitle>
-      <div className="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-[#F6EFE5] mt-2">
+      <div className="relative aspect-[4/5] min-h-[16rem] w-full rounded-xl overflow-hidden bg-[#F6EFE5] mt-2">
         <ProductGallery images={images} alt={alt} />
       </div>
     </DialogContent>
