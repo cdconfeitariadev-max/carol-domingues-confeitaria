@@ -13,6 +13,9 @@ import maracuja01 from '../assets/maracuja-com-brigadeiro01-4824d.png'
 import maracuja02 from '../assets/maracuja-com-brigadeiro02-0e926.png'
 import maracuja03 from '../assets/maracuja-com-brigadeiro03-51436.png'
 import maracujaFatiado from '../assets/panettone-de-maracuja-com-chocolate-1dca2.png'
+import paveAbacaxi01 from '../assets/pave-de-abacaxi-com-coco01-f72c8.png'
+import paveAbacaxi02 from '../assets/pave-de-abacaxi-com-coco02-f3541.png'
+import paveAbacaxi03 from '../assets/pave-de-abacaxi-com-coco03-a8ba2.png'
 
 export interface Product {
   id: string
@@ -64,6 +67,9 @@ const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
 
 /** Galeria do Maracujá com brigadeiro, na ordem: 01 produto inteiro (capa), 02 close da cobertura, 03 vista de cima, 04 fatiado. */
 const MARACUJA_BRIGADEIRO_FOTOS = [maracuja01, maracuja02, maracuja03, maracujaFatiado]
+
+/** Galeria do Pavê de Abacaxi com Coco, na ordem: 01 capa no pote, 02 vista de cima com pinhas e colher, 03 close das camadas. */
+const PAVE_ABACAXI_FOTOS = [paveAbacaxi01, paveAbacaxi02, paveAbacaxi03]
 
 /** Lista de fotos do produto para a galeria (sempre ao menos a foto de capa). */
 export const productImages = (item: { image: string; images?: string[] }): string[] =>
@@ -246,8 +252,8 @@ export const DESSERTS: Dessert[] = [
   {
     id: 'sobremesa-branca',
     name: 'Pavê de Abacaxi com Coco',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/sobremesa-branca-v10.webp',
+    image: PAVE_ABACAXI_FOTOS[0],
+    images: PAVE_ABACAXI_FOTOS,
     alt: 'Sobremesa em recipiente de vidro, com decoração branca e frutas amarelas no topo',
     description: 'Mousse de abacaxi com coco e bolacha champanhe umedecida no licor de chocolate.',
     sizes: [
