@@ -111,7 +111,8 @@ export const FloatingSelectionBar: React.FC = () => {
                     <img
                       src={item.product.image}
                       alt={item.product.name}
-                      className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg object-cover bg-[#F6EFE5] shrink-0"
+                      referrerPolicy="no-referrer"
+                      className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg object-cover object-center bg-[#F6EFE5] shrink-0"
                     />
 
                     <div className="flex-1 min-w-0">

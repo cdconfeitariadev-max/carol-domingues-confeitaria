@@ -21,7 +21,7 @@ export const GiftsSection: React.FC = () => {
             : 'border-[#E9DFD3] shadow-sm'
         }`}
       >
-        <div className="relative aspect-square min-h-[14rem] w-full bg-[#F6EFE5] overflow-hidden">
+        <div className="relative aspect-[4/5] min-h-[18rem] w-full bg-[#F6EFE5] overflow-hidden">
           <ProductGallery images={productImages(product)} alt={product.name} />
           <div className="absolute top-3 left-3 z-10 pointer-events-none">
             <span className="px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-sm text-[11px] font-bold text-[#84222A] tracking-wide uppercase shadow-sm">

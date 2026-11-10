@@ -36,9 +36,9 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ images, alt }) =
           key={src}
           src={src}
           alt={hasMany ? `${alt} (foto ${i + 1} de ${total})` : alt}
-          /* object-contain: mostra o produto inteiro (sem cortar topo/bordas) e nunca distorce;
-             o contêiner pai tem fundo bege [#F6EFE5] que preenche as laterais. */
-          className={`absolute inset-0 w-full h-full object-contain object-center p-2 sm:p-3 transition-all duration-500 ${
+          /* object-cover: a foto preenche o quadro de borda a borda (sem faixa bege nem padding).
+             O contêiner pai mantém bg bege [#F6EFE5] apenas como cor de fallback no carregamento. */
+          className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 ${
             i === index ? 'opacity-100 group-hover:scale-[1.03]' : 'opacity-0'
           }`}
           /* A capa carrega eager: com lazy, imagens empilhadas com opacity-0 podem
