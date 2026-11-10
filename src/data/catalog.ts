@@ -3,6 +3,9 @@ import brigadeiroBranco01 from '../assets/01brigadeiro-branco-83ebd.png'
 import brigadeiroBranco02 from '../assets/02brigadeiro-branco-6bdad.png'
 import brigadeiroBranco03 from '../assets/03brigadeiro-branco-014be.png'
 import brigadeiroBrancoFatiado from '../assets/04brigadeiro-branco-a1dea.png'
+import chocotone01 from '../assets/chocotone01-50aa0.png'
+import chocotone02 from '../assets/chocotone02-50fa8.png'
+import chocotone03 from '../assets/chocotone03-c40c7.png'
 import chocotoneFatiado from '../assets/chocotone04-cfab3.png'
 import gingerbread01 from '../assets/gingerbread1-670a0.jpg'
 import gingerbread02 from '../assets/gingerbread2-77dee.png'
@@ -63,8 +66,8 @@ const BRIGADEIRO_BRANCO_FOTOS = [
 /** Galeria do Gingerbread, na ordem: 01 mão segurando (capa), 02 close do biscoito, 03 prato cheio. */
 const GINGERBREAD_FOTOS = [gingerbread01, gingerbread02, gingerbread03]
 
-/** Galeria do Chocotone: por enquanto só a foto fatiada local. As fotos inteiro e vista de cima ainda não foram salvas. */
-const CHOCOTONE_FOTOS = [chocotoneFatiado]
+/** Galeria do Chocotone e do Mini Chocotone, na ordem: 01 produto inteiro (capa), 02 close da cobertura, 03 vista de cima, 04 fatiado. */
+const CHOCOTONE_FOTOS = [chocotone01, chocotone02, chocotone03, chocotoneFatiado]
 
 /** Galeria da Guirlanda de Brownie, na ordem: 01 capa de frente com o laço, 02 vista em ângulo, 03 vista de cima. */
 const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
