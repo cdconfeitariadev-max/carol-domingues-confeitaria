@@ -66,8 +66,11 @@ const BRIGADEIRO_BRANCO_FOTOS = [
 /** Galeria do Gingerbread, na ordem: 01 mão segurando (capa), 02 close do biscoito, 03 prato cheio. */
 const GINGERBREAD_FOTOS = [gingerbread01, gingerbread02, gingerbread03]
 
-/** Galeria do Chocotone e do Mini Chocotone, na ordem: 01 produto inteiro (capa), 02 close da cobertura, 03 vista de cima, 04 fatiado. */
+/** Galeria do Chocotone, na ordem: 01 produto inteiro (capa), 02 close da cobertura, 03 vista de cima, 04 fatiado. */
 const CHOCOTONE_FOTOS = [chocotone01, chocotone02, chocotone03, chocotoneFatiado]
+
+/** Galeria do Mini Chocotone, na ordem: 01 capa (provisória: foto do Chocotone até a foto do mini ser salva em src/assets/), 02 close da cobertura, 03 vista de cima. Sem a foto fatiada. */
+const MINI_CHOCOTONE_FOTOS = [chocotone01, chocotone02, chocotone03]
 
 /** Galeria da Guirlanda de Brownie, na ordem: 01 capa de frente com o laço, 02 vista em ângulo, 03 vista de cima. */
 const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
@@ -280,8 +283,8 @@ export const GIFTS: Product[] = [
     category: 'presentes',
     description:
       'Mini chocotone de 250 g, perfeito para lembranças afetuosas e pequenos gestos de carinho.',
-    image: CHOCOTONE_FOTOS[0],
-    images: CHOCOTONE_FOTOS,
+    image: MINI_CHOCOTONE_FOTOS[0],
+    images: MINI_CHOCOTONE_FOTOS,
   },
   {
     id: 'gingerbread',
