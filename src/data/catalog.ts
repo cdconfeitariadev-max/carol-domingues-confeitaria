@@ -3,6 +3,9 @@ import brigadeiroBranco01 from '../assets/01brigadeiro-branco-83ebd.png'
 import brigadeiroBranco02 from '../assets/02brigadeiro-branco-6bdad.png'
 import brigadeiroBranco03 from '../assets/03brigadeiro-branco-014be.png'
 import brigadeiroBrancoFatiado from '../assets/04brigadeiro-branco-a1dea.png'
+import gingerbread01 from '../assets/gingerbread1-670a0.jpg'
+import gingerbread02 from '../assets/gingerbread2-77dee.png'
+import gingerbread03 from '../assets/gingerbread3-485db.jpg'
 
 export interface Product {
   id: string
@@ -45,6 +48,9 @@ const BRIGADEIRO_BRANCO_FOTOS = [
   brigadeiroBranco03,
   brigadeiroBrancoFatiado,
 ]
+
+/** Galeria do Gingerbread, na ordem: 01 mão segurando (capa), 02 close do biscoito, 03 prato cheio. */
+const GINGERBREAD_FOTOS = [gingerbread01, gingerbread02, gingerbread03]
 
 /** Lista de fotos do produto para a galeria (sempre ao menos a foto de capa). */
 export const productImages = (item: { image: string; images?: string[] }): string[] =>
@@ -260,8 +266,8 @@ export const GIFTS: Product[] = [
     category: 'presentes',
     description:
       'Biscoitos de Natal de especiarias. Porção com 3 unidades, nos formatos árvore de Natal e boneco de neve.',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/gingerbread-v10.webp',
+    image: GINGERBREAD_FOTOS[0],
+    images: GINGERBREAD_FOTOS,
   },
 ]
 
