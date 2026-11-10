@@ -6,6 +6,9 @@ import brigadeiroBrancoFatiado from '../assets/04brigadeiro-branco-a1dea.png'
 import gingerbread01 from '../assets/gingerbread1-670a0.jpg'
 import gingerbread02 from '../assets/gingerbread2-77dee.png'
 import gingerbread03 from '../assets/gingerbread3-485db.jpg'
+import guirlanda01 from '../assets/guirlanda-1-a643e.png'
+import guirlanda02 from '../assets/guirlanda-2-480fc.png'
+import guirlanda03 from '../assets/guirlanda-3-f9c48.png'
 
 export interface Product {
   id: string
@@ -51,6 +54,9 @@ const BRIGADEIRO_BRANCO_FOTOS = [
 
 /** Galeria do Gingerbread, na ordem: 01 mão segurando (capa), 02 close do biscoito, 03 prato cheio. */
 const GINGERBREAD_FOTOS = [gingerbread01, gingerbread02, gingerbread03]
+
+/** Galeria da Guirlanda de Brownie, na ordem: 01 capa de frente com o laço, 02 vista em ângulo, 03 vista de cima. */
+const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
 
 /** Lista de fotos do produto para a galeria (sempre ao menos a foto de capa). */
 export const productImages = (item: { image: string; images?: string[] }): string[] =>
@@ -191,8 +197,8 @@ export const DESSERTS: Dessert[] = [
   {
     id: 'sobremesa-guirlanda',
     name: 'Guirlanda de Brownie',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/sobremesa-guirlanda-v10.webp',
+    image: GUIRLANDA_FOTOS[0],
+    images: GUIRLANDA_FOTOS,
     alt: 'Sobremesa em formato de guirlanda, com laço e decoração, fotografada pela confeitaria',
     description:
       'Brownie, brigadeiro ao leite, decorada com morangos, nozes, brigadeiros e cerejas.',
