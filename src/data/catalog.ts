@@ -9,6 +9,10 @@ import gingerbread03 from '../assets/gingerbread3-485db.jpg'
 import guirlanda01 from '../assets/guirlanda-1-a643e.png'
 import guirlanda02 from '../assets/guirlanda-2-480fc.png'
 import guirlanda03 from '../assets/guirlanda-3-f9c48.png'
+import maracuja01 from '../assets/maracuja-com-brigadeiro01-4824d.png'
+import maracuja02 from '../assets/maracuja-com-brigadeiro02-0e926.png'
+import maracuja03 from '../assets/maracuja-com-brigadeiro03-51436.png'
+import maracujaFatiado from '../assets/panettone-de-maracuja-com-chocolate-1dca2.png'
 
 export interface Product {
   id: string
@@ -57,6 +61,9 @@ const GINGERBREAD_FOTOS = [gingerbread01, gingerbread02, gingerbread03]
 
 /** Galeria da Guirlanda de Brownie, na ordem: 01 capa de frente com o laço, 02 vista em ângulo, 03 vista de cima. */
 const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
+
+/** Galeria do Maracujá com brigadeiro, na ordem: 01 produto inteiro (capa), 02 close da cobertura, 03 vista de cima, 04 fatiado. */
+const MARACUJA_BRIGADEIRO_FOTOS = [maracuja01, maracuja02, maracuja03, maracujaFatiado]
 
 /** Lista de fotos do produto para a galeria (sempre ao menos a foto de capa). */
 export const productImages = (item: { image: string; images?: string[] }): string[] =>
@@ -144,8 +151,8 @@ export const PANETTONES: Product[] = [
     flavorCategory: 'fruta',
     description:
       'Recheio de brigadeiro de maracujá com brigadeiro ao leite. Cobertura de chocolate branco nobre com geleia de maracujá.',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/maracuja-brigadeiro-v10.webp',
+    image: MARACUJA_BRIGADEIRO_FOTOS[0],
+    images: MARACUJA_BRIGADEIRO_FOTOS,
   },
   {
     id: 'meio-amargo',
