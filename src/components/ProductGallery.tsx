@@ -36,8 +36,10 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ images, alt }) =
           key={src}
           src={src}
           alt={hasMany ? `${alt} (foto ${i + 1} de ${total})` : alt}
-          className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 ${
-            i === index ? 'opacity-100 group-hover:scale-105' : 'opacity-0'
+          /* object-contain: mostra o produto inteiro (sem cortar topo/bordas) e nunca distorce;
+             o contêiner pai tem fundo bege [#F6EFE5] que preenche as laterais. */
+          className={`absolute inset-0 w-full h-full object-contain object-center p-2 sm:p-3 transition-all duration-500 ${
+            i === index ? 'opacity-100 group-hover:scale-[1.03]' : 'opacity-0'
           }`}
           /* A capa carrega eager: com lazy, imagens empilhadas com opacity-0 podem
              nunca disparar o download em alguns navegadores/webviews. */
@@ -104,14 +106,14 @@ export const ProductGalleryDialog: React.FC<ProductGalleryDialogProps> = ({
     <DialogTrigger asChild>
       <button
         type="button"
-        className="absolute bottom-3 right-3 z-10 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity bg-black/60 text-white text-[10px] font-medium px-2.5 py-1 rounded-full backdrop-blur-sm"
+        className="absolute bottom-3 right-3 z-10 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 focus-visible:opacity-100 transition-opacity bg-black/60 text-white text-[10px] font-medium px-2.5 py-1 rounded-full backdrop-blur-sm whitespace-nowrap"
       >
         {triggerLabel}
       </button>
     </DialogTrigger>
-    <DialogContent className="max-w-md p-4 sm:p-6">
+    <DialogContent className="w-[calc(100vw-2rem)] max-w-md p-4 sm:p-6">
       <DialogTitle className="font-serif text-xl font-bold text-[#342822]">{title}</DialogTitle>
-      <div className="relative aspect-[4/5] min-h-[16rem] w-full rounded-xl overflow-hidden bg-[#F6EFE5] mt-2">
+      <div className="relative aspect-[4/5] max-h-[70vh] w-full rounded-xl overflow-hidden bg-[#F6EFE5] mt-2">
         <ProductGallery images={images} alt={alt} />
       </div>
     </DialogContent>

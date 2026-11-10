@@ -48,10 +48,10 @@ export const FloatingSelectionBar: React.FC = () => {
               </div>
             </button>
 
-            <div className="flex items-center gap-1.5 shrink-0">
+            <div className="flex items-center shrink-0">
               <button
                 onClick={() => setIsSelectionOpen(true)}
-                className="px-3.5 py-2 rounded-full bg-[#B3242E] hover:bg-[#8F1A22] text-white font-semibold text-xs transition-colors shadow-sm"
+                className="px-3 py-2 rounded-full bg-[#B3242E] hover:bg-[#8F1A22] text-white font-semibold text-xs transition-colors shadow-sm whitespace-nowrap"
               >
                 Ver seleção
               </button>
@@ -71,13 +71,13 @@ export const FloatingSelectionBar: React.FC = () => {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Drawer Header */}
-            <div className="p-5 border-b border-[#E8DFD3] flex items-center justify-between bg-white">
-              <div className="flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5 text-[#B3242E]" />
-                <h3 className="font-serif text-lg sm:text-xl font-bold text-[#342822]">
+            <div className="p-5 border-b border-[#E8DFD3] flex items-center justify-between gap-3 bg-white">
+              <div className="flex items-center gap-2 min-w-0">
+                <ShoppingBag className="w-5 h-5 text-[#B3242E] shrink-0" />
+                <h3 className="font-serif text-base sm:text-xl font-bold text-[#342822] truncate">
                   Sua seleção de Natal
                 </h3>
-                <span className="px-2 py-0.5 rounded-full bg-[#F4EDE2] text-[11px] font-semibold text-[#84222A]">
+                <span className="px-2 py-0.5 rounded-full bg-[#F4EDE2] text-[11px] font-semibold text-[#84222A] whitespace-nowrap shrink-0">
                   {totalCount} {totalCount === 1 ? 'item' : 'itens'}
                 </span>
               </div>
@@ -130,7 +130,7 @@ export const FloatingSelectionBar: React.FC = () => {
                     </div>
 
                     {/* Quantity controls */}
-                    <div className="flex items-center gap-1 bg-[#FAF6EE] rounded-full p-1 border border-[#E4D7C5]">
+                    <div className="flex items-center gap-1 bg-[#FAF6EE] rounded-full p-1 border border-[#E4D7C5] shrink-0">
                       <button
                         onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                         className="w-6 h-6 rounded-full bg-white hover:bg-[#F2E7D7] text-[#4A3B32] flex items-center justify-center transition-colors text-xs"

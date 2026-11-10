@@ -15,27 +15,31 @@ export const DessertsSection: React.FC = () => {
     return (
       <div
         key={size.id}
-        className="flex items-center justify-between gap-3 pt-3 border-t border-[#F2ECE3]"
+        className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 pt-3 border-t border-[#F2ECE3]"
       >
-        <div className="flex items-baseline gap-2 min-w-0">
-          <span className="px-2.5 py-1 rounded-full bg-[#F4EDE2] text-[10px] font-bold text-[#84222A] tracking-wide uppercase shadow-sm">
-            {size.label}
-          </span>
-          <span className="text-[11px] text-[#8A7566] truncate">{size.serves}</span>
-        </div>
-
-        <div className="flex items-center gap-2 shrink-0">
+        {/* Topo: tamanho + preço (nunca disputam espaço com os botões) */}
+        <div className="flex items-center justify-between gap-2 flex-1 min-w-[10rem]">
+          <div className="flex items-baseline gap-2 min-w-0">
+            <span className="px-2.5 py-1 rounded-full bg-[#F4EDE2] text-[10px] font-bold text-[#84222A] tracking-wide uppercase shadow-sm shrink-0">
+              {size.label}
+            </span>
+            <span className="text-[11px] text-[#8A7566] truncate">{size.serves}</span>
+          </div>
           <span className="font-serif text-lg font-bold text-[#B3242E] whitespace-nowrap">
             {formatCurrency(size.price)}
           </span>
+        </div>
+
+        {/* Botões em linha própria sempre — completos em qualquer largura */}
+        <div className="flex items-center gap-2 w-full">
           <WhatsAppOrderButton
             message={buildProductOrderMessage(dessert.name, size.label)}
             ariaLabel={`Pedir ${dessert.name} (${size.label}) pelo WhatsApp`}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold transition-all active:scale-95 bg-[#25D366] hover:bg-[#1EBE5D] text-white shadow-sm"
+            className="flex flex-1 min-w-0 items-center justify-center gap-1.5 px-2 sm:px-3 py-2 rounded-full text-xs font-semibold transition-all active:scale-95 bg-[#25D366] hover:bg-[#1EBE5D] text-white shadow-sm whitespace-nowrap"
           />
           <button
             onClick={() => addDessert(dessert, size.id)}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all active:scale-95 ${
+            className={`flex flex-1 min-w-0 items-center justify-center gap-1.5 px-2 sm:px-3 py-2 rounded-full text-xs font-semibold transition-all active:scale-95 whitespace-nowrap ${
               isAdded
                 ? 'bg-[#B3242E] text-white shadow-sm'
                 : 'bg-[#FAF6EE] text-[#5A4538] hover:bg-[#B3242E] hover:text-white border border-[#DFD3C4]'
@@ -44,12 +48,12 @@ export const DessertsSection: React.FC = () => {
           >
             {isAdded ? (
               <>
-                <Check className="w-3.5 h-3.5" />
+                <Check className="w-3.5 h-3.5 shrink-0" />
                 <span>{qty}</span>
               </>
             ) : (
               <>
-                <Plus className="w-3.5 h-3.5" />
+                <Plus className="w-3.5 h-3.5 shrink-0" />
                 <span>Adicionar</span>
               </>
             )}

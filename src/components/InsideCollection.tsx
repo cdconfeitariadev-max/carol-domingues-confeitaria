@@ -38,12 +38,12 @@ export const InsideCollection: React.FC = () => {
                 className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
               />
-              <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md rounded-xl p-3 text-white flex items-center justify-between">
+              <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md rounded-xl p-3 text-white flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
                 <span className="text-xs sm:text-sm font-medium flex items-center gap-2">
-                  <Eye className="w-4 h-4 text-[#D9A441]" />
+                  <Eye className="w-4 h-4 text-[#D9A441] shrink-0" />
                   Ver o recheio de perto
                 </span>
-                <span className="text-[11px] uppercase tracking-wider text-amber-200 font-serif">
+                <span className="text-[11px] uppercase tracking-wider text-amber-200 font-serif whitespace-nowrap">
                   Fartura artesanal
                 </span>
               </div>

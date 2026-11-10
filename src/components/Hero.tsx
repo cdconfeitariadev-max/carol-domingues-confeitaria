@@ -64,7 +64,7 @@ export const Hero: React.FC = () => {
               </a>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-[#E8DFD3] w-full flex items-center justify-between text-[11px] tracking-wider uppercase text-[#8A7566] font-medium">
+            <div className="mt-8 pt-6 border-t border-[#E8DFD3] w-full flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[11px] tracking-wider uppercase text-[#8A7566] font-medium">
               <span>CAROL DOMINGUES CONFEITARIA</span>
               <span>COLEÇÃO DE NATAL 2026</span>
             </div>
