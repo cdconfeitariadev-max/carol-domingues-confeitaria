@@ -144,8 +144,8 @@ export const PANETTONES: Product[] = [
     flavorCategory: 'fruta',
     description:
       'Recheio de brigadeiro de maracujá com brigadeiro ao leite. Cobertura de chocolate branco nobre com geleia de maracujá.',
-    image: MARACUJA_FOTOS[0],
-    images: MARACUJA_FOTOS,
+    image:
+      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/maracuja-brigadeiro-v10.webp',
   },
   {
     id: 'meio-amargo',
