@@ -69,8 +69,12 @@ const GINGERBREAD_FOTOS = [gingerbread01, gingerbread02, gingerbread03]
 /** Galeria do Chocotone, na ordem: 01 produto inteiro (capa), 02 close da cobertura, 03 vista de cima, 04 fatiado. */
 const CHOCOTONE_FOTOS = [chocotone01, chocotone02, chocotone03, chocotoneFatiado]
 
-/** Galeria do Mini Chocotone, na ordem: 01 capa (provisória: foto do Chocotone até a foto do mini ser salva em src/assets/), 02 close da cobertura, 03 vista de cima. Sem a foto fatiada. */
-const MINI_CHOCOTONE_FOTOS = [chocotone01, chocotone02, chocotone03]
+/** Galeria do Mini Chocotone, na ordem: 01 capa (foto própria do mini panetone, hotlink), 02 close da cobertura, 03 vista de cima. Sem a foto fatiada. */
+const MINI_CHOCOTONE_FOTOS = [
+  'https://dagtlwojkqyivnjgveda.supabase.co/storage/v1/object/public/message-attachments/e01520b9-84b8-418a-9dc1-1d4e8a2f02db/mini-chocotone-34dd6.png',
+  chocotone02,
+  chocotone03,
+]
 
 /** Galeria da Guirlanda de Brownie, na ordem: 01 capa de frente com o laço, 02 vista em ângulo, 03 vista de cima. */
 const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
