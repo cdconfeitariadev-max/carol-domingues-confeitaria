@@ -277,8 +277,8 @@ export const GIFTS: Product[] = [
     category: 'presentes',
     description:
       'Mini chocotone de 250 g, perfeito para lembranças afetuosas e pequenos gestos de carinho.',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/brigadeiro-v10.webp',
+    image: CHOCOTONE_FOTOS[0],
+    images: CHOCOTONE_FOTOS,
   },
   {
     id: 'gingerbread',
