@@ -114,6 +114,12 @@ const SOBREMESA_NATALINA_FOTOS = [
   'https://lh3.googleusercontent.com/d/1BlRCWbAxz4zIA2gC5rfxGTAhsMhGtXhi',
 ]
 
+/** Galeria da Folhata de Morango, na ordem: 01 copo com creme e morangos (capa), 02 bolo em camadas com creme e morangos. Fotos hotlinkadas do Google Drive. */
+const FOLHATA_FOTOS = [
+  'https://lh3.googleusercontent.com/d/1qPNhMzcPEm-uCxVz7qGCBmn0FO68bQZH',
+  'https://lh3.googleusercontent.com/d/1yfpjFZQZgnOWtVKm07EX57PA_92dQTeQ',
+]
+
 /** Galeria da Guirlanda de Brownie, na ordem: 01 capa de frente com o laço, 02 vista em ângulo, 03 vista de cima. */
 const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
 
@@ -290,8 +296,8 @@ export const DESSERTS: Dessert[] = [
   {
     id: 'sobremesa-decorada',
     name: 'Folhata de Morango',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/sobremesa-decorada-v10.webp',
+    image: FOLHATA_FOTOS[0],
+    images: FOLHATA_FOTOS,
     alt: 'Outra sobremesa em recipiente de vidro, decorada para o Natal',
     description: 'Massa folhada, creme de 3 leites, leite ninho e morangos.',
     sizes: [
