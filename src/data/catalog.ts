@@ -76,6 +76,13 @@ const MINI_CHOCOTONE_FOTOS = [
   chocotone03,
 ]
 
+/** Galeria do Dois Amores, na ordem: 01 produto inteiro de frente (capa), 02 close da cobertura com os brigadeiros, 03 vista de cima. Fotos hotlinkadas do Google Drive. */
+const DOIS_AMORES_FOTOS = [
+  'https://lh3.googleusercontent.com/d/1-esB3bAJghnuGWxgBv68z_8zunH-bhb9',
+  'https://lh3.googleusercontent.com/d/15cxIlimZrwGmAKYNJZvDAYsgBqYmPmhi',
+  'https://lh3.googleusercontent.com/d/1jIjSjKW5K8KHd0uXOjqnnkxejywZVSnS',
+]
+
 /** Galeria da Guirlanda de Brownie, na ordem: 01 capa de frente com o laço, 02 vista em ângulo, 03 vista de cima. */
 const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
 
@@ -157,8 +164,8 @@ export const PANETTONES: Product[] = [
     flavorCategory: 'chocolate',
     description:
       'Recheio de brigadeiro Ninho e brigadeiro ao leite. Cobertura de chocolate nobre branco e ao leite.',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/dois-amores-v10.webp',
+    image: DOIS_AMORES_FOTOS[0],
+    images: DOIS_AMORES_FOTOS,
   },
   {
     id: 'maracuja-brigadeiro',
