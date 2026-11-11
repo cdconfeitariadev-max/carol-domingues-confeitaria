@@ -15,6 +15,7 @@ export const GiftsSection: React.FC = () => {
     return (
       <div
         key={product.id}
+        data-reveal
         className={`group bg-white rounded-2xl border transition-all duration-300 flex flex-col overflow-hidden hover:shadow-xl hover:-translate-y-1 ${
           isAdded
             ? 'border-[#B3242E] ring-2 ring-[#B3242E]/20 shadow-md'
@@ -74,7 +75,7 @@ export const GiftsSection: React.FC = () => {
               >
                 {isAdded ? (
                   <>
-                    <Check className="w-3.5 h-3.5 shrink-0" />
+                    <Check className="w-3.5 h-3.5 shrink-0 animate-check-pop" />
                     <span>Adicionado ({qty})</span>
                   </>
                 ) : (
@@ -103,7 +104,7 @@ export const GiftsSection: React.FC = () => {
                 >
                   {isAdded ? (
                     <>
-                      <Check className="w-4 h-4 shrink-0" />
+                      <Check className="w-4 h-4 shrink-0 animate-check-pop" />
                       <span>Adicionado ({qty})</span>
                     </>
                   ) : (
@@ -125,7 +126,7 @@ export const GiftsSection: React.FC = () => {
     <section id="presentes" className="py-16 sm:py-20 bg-[#FAF6EE] scroll-mt-14">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center max-w-xl mx-auto mb-10">
+        <div className="text-center max-w-xl mx-auto mb-10" data-reveal>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EFE4D3] text-[#84222A] text-xs font-semibold tracking-wide uppercase mb-3">
             <Gift className="w-3.5 h-3.5 text-[#C49339]" />
             <span>Para presentear</span>

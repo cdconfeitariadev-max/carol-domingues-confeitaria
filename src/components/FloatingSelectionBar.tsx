@@ -2,6 +2,7 @@ import React from 'react'
 import { ShoppingBag, X, Plus, Minus, Trash2, MessageCircle, ChevronUp } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 import { buildWhatsappUrl } from '@/components/WhatsAppOrderButton'
+import { useDelayedUnmount } from '@/hooks/use-delayed-unmount'
 
 export const FloatingSelectionBar: React.FC = () => {
   const {
@@ -18,6 +19,8 @@ export const FloatingSelectionBar: React.FC = () => {
   } = useCart()
 
   const whatsappSelectionUrl = buildWhatsappUrl(generateOrderText())
+  // Gaveta permanece montada um instante ao fechar, para a saída ser animada
+  const drawer = useDelayedUnmount(isSelectionOpen, 220)
 
   // Floating trigger bar when collapsed (only visible if there are items)
   return (
@@ -39,7 +42,10 @@ export const FloatingSelectionBar: React.FC = () => {
               </div>
               <div className="truncate">
                 <div className="text-xs sm:text-sm font-semibold truncate">
-                  {totalCount} {totalCount === 1 ? 'item' : 'itens'} · {formatCurrency(totalPrice)}
+                  {totalCount} {totalCount === 1 ? 'item' : 'itens'} ·{' '}
+                  <span key={totalPrice} className="inline-block animate-price-bump">
+                    {formatCurrency(totalPrice)}
+                  </span>
                 </div>
                 <div className="text-[10px] text-[#D6C7B7] flex items-center gap-1">
                   <span>Toque para ver a seleção</span>
@@ -61,13 +67,17 @@ export const FloatingSelectionBar: React.FC = () => {
       )}
 
       {/* Expanded Selection Drawer / Modal */}
-      {isSelectionOpen && (
+      {drawer.mounted && (
         <div
-          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in"
+          className={`fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 ${
+            drawer.exiting ? 'animate-fade-out' : 'animate-fade-in'
+          }`}
           onClick={() => setIsSelectionOpen(false)}
         >
           <div
-            className="w-full sm:max-w-xl bg-[#FAF6EE] rounded-t-3xl sm:rounded-3xl shadow-2xl border border-[#E6D9C8] max-h-[85vh] flex flex-col overflow-hidden animate-slide-up"
+            className={`w-full sm:max-w-xl bg-[#FAF6EE] rounded-t-3xl sm:rounded-3xl shadow-2xl border border-[#E6D9C8] max-h-[85vh] flex flex-col overflow-hidden ${
+              drawer.exiting ? 'animate-slide-down-out' : 'animate-slide-up'
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Drawer Header */}
@@ -171,7 +181,10 @@ export const FloatingSelectionBar: React.FC = () => {
                   <span className="text-xs sm:text-sm font-semibold text-[#665447]">
                     Total estimado ({totalCount} {totalCount === 1 ? 'item' : 'itens'}):
                   </span>
-                  <span className="font-serif text-2xl font-bold text-[#B3242E]">
+                  <span
+                    key={totalPrice}
+                    className="font-serif text-2xl font-bold text-[#B3242E] inline-block animate-price-bump"
+                  >
                     {formatCurrency(totalPrice)}
                   </span>
                 </div>

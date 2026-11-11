@@ -65,6 +65,38 @@
     padding: 0 !important;
     margin: 0 !important;
   }
+
+  /* Âncoras não escondem títulos atrás do header fixo */
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+
+  /* Foco visível para navegação por teclado */
+  :focus-visible {
+    outline: 2px solid #b3242e;
+    outline-offset: 2px;
+  }
+
+  /* Micro-interação: botões e pílulas elevam levemente ao passar o mouse e encolhem ao toque */
+  :where(button:not(:disabled):not([aria-expanded])),
+  :where(a.rounded-full) {
+    transition:
+      scale 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  :where(button:not(:disabled):not([aria-expanded])):hover,
+  :where(a.rounded-full):hover {
+    scale: 1.03;
+  }
+
+  :where(button:not(:disabled):not([aria-expanded])):active,
+  :where(a.rounded-full):active {
+    scale: 0.97;
+  }
 }
 
 @layer utilities {
@@ -114,6 +146,174 @@
   }
   .animate-snow-3 {
     animation: snowfall 11s linear infinite 4s;
+  }
+
+  /* Entradas de tela e de componentes (usadas pela barra flutuante, acordeão e hero) */
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out both;
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  .animate-fade-out {
+    animation: fade-out 0.22s ease-in both;
+  }
+
+  /* Saída da gaveta da seleção: desce e some (espelho do slide-up de entrada) */
+  @keyframes slide-down-out {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+  }
+
+  .animate-slide-down-out {
+    animation: slide-down-out 0.22s cubic-bezier(0.4, 0, 1, 1) both;
+  }
+
+  /* Acordeão do FAQ: altura animada usando a variável que o Radix publica */
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  .animate-accordion-down {
+    animation: accordion-down 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .animate-accordion-up {
+    animation: accordion-up 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Destaque rápido do preço quando muda (a chave do elemento reinicia a animação) */
+  @keyframes price-bump {
+    0% {
+      transform: scale(1);
+    }
+    40% {
+      transform: scale(1.14);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-price-bump {
+    display: inline-block;
+    animation: price-bump 0.45s ease-out;
+  }
+
+  /* Ícone de "Adicionado" com pequeno pulso ao aparecer */
+  @keyframes check-pop {
+    0% {
+      transform: scale(0.4);
+      opacity: 0;
+    }
+    70% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-check-pop {
+    animation: check-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  /* Revelação ao rolar (ver hooks/use-scroll-reveal): elementos [data-reveal] entram em sequência */
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      translate: 0 28px;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  html.reveal-ready [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+  }
+
+  [data-revealed] {
+    animation: reveal-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+}
+
+/* Respeita quem pede menos movimento: sem ticker, neve nem animações longas */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-snow-1,
+  .animate-snow-2,
+  .animate-snow-3 {
+    animation: none;
+  }
+
+  .animate-snow-1,
+  .animate-snow-2,
+  .animate-snow-3 {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

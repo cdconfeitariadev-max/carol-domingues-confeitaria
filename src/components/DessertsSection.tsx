@@ -48,7 +48,7 @@ export const DessertsSection: React.FC = () => {
           >
             {isAdded ? (
               <>
-                <Check className="w-3.5 h-3.5 shrink-0" />
+                <Check className="w-3.5 h-3.5 shrink-0 animate-check-pop" />
                 <span>{qty}</span>
               </>
             ) : (
@@ -67,6 +67,7 @@ export const DessertsSection: React.FC = () => {
     return (
       <div
         key={dessert.id}
+        data-reveal
         className="group bg-white rounded-2xl border border-[#E9DFD3] shadow-sm transition-all duration-300 flex flex-col overflow-hidden hover:shadow-xl hover:-translate-y-1"
       >
         {/* Product Image */}
@@ -107,7 +108,7 @@ export const DessertsSection: React.FC = () => {
     <section id="sobremesas" className="py-16 sm:py-20 bg-[#FAF6EE] scroll-mt-14">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-10" data-reveal>
           <span className="text-xs font-semibold tracking-widest text-[#B3242E] uppercase font-sans">
             Mais sabores para celebrar
           </span>
@@ -126,7 +127,10 @@ export const DessertsSection: React.FC = () => {
         </div>
 
         {/* Bottom Callout */}
-        <div className="max-w-2xl mx-auto bg-white rounded-2xl p-6 sm:p-8 border border-[#EADFCF] shadow-sm text-center">
+        <div
+          data-reveal
+          className="max-w-2xl mx-auto bg-white rounded-2xl p-6 sm:p-8 border border-[#EADFCF] shadow-sm text-center"
+        >
           <Sparkles className="w-6 h-6 text-[#D9A441] mx-auto mb-2" />
           <p className="text-sm sm:text-base font-medium text-[#4A3B32]">
             Consulte sabores, tamanhos e valores diretamente com a Carol.

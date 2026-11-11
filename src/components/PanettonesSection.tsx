@@ -41,6 +41,7 @@ export const PanettonesSection: React.FC = () => {
     return (
       <div
         key={product.id}
+        data-reveal
         className={`group bg-white rounded-2xl border transition-all duration-300 flex flex-col overflow-hidden hover:shadow-xl hover:-translate-y-1 ${
           isAdded
             ? 'border-[#B3242E] ring-2 ring-[#B3242E]/20 shadow-md'
@@ -122,7 +123,7 @@ export const PanettonesSection: React.FC = () => {
               >
                 {isAdded ? (
                   <>
-                    <Check className="w-3.5 h-3.5 shrink-0" />
+                    <Check className="w-3.5 h-3.5 shrink-0 animate-check-pop" />
                     <span>Adicionado ({qty})</span>
                   </>
                 ) : (
@@ -151,7 +152,7 @@ export const PanettonesSection: React.FC = () => {
                 >
                   {isAdded ? (
                     <>
-                      <Check className="w-4 h-4 shrink-0" />
+                      <Check className="w-4 h-4 shrink-0 animate-check-pop" />
                       <span>Adicionado ({qty})</span>
                     </>
                   ) : (
@@ -173,7 +174,7 @@ export const PanettonesSection: React.FC = () => {
     <section id="cardapio" className="py-16 sm:py-20 bg-[#FAF6EE] scroll-mt-14">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-10" data-reveal>
           <span className="text-xs font-semibold tracking-widest text-[#B3242E] uppercase font-sans">
             O Natal em sete sabores
           </span>
@@ -287,7 +288,7 @@ export const PanettonesSection: React.FC = () => {
 
         {/* Group 01: Os clássicos (if visible) */}
         {classicos.length > 0 && (
-          <div className="mb-14">
+          <div className="mb-14" data-reveal>
             <div className="flex items-center gap-3 mb-6">
               <span className="w-7 h-7 rounded-full bg-[#E8DFD3] text-[#4A3B32] font-serif font-bold text-xs flex items-center justify-center">
                 01
@@ -304,7 +305,7 @@ export const PanettonesSection: React.FC = () => {
 
         {/* Group 02: Combinações especiais (if visible) */}
         {especiais.length > 0 && (
-          <div>
+          <div data-reveal>
             <div className="flex items-center gap-3 mb-6">
               <span className="w-7 h-7 rounded-full bg-[#E8DFD3] text-[#4A3B32] font-serif font-bold text-xs flex items-center justify-center">
                 02

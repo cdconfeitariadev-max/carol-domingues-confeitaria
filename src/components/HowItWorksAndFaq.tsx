@@ -29,6 +29,7 @@ export const HowItWorksAndFaq: React.FC = () => {
             {HOW_IT_WORKS.map((step, idx) => (
               <div
                 key={idx}
+                data-reveal
                 className="bg-white rounded-2xl p-6 border border-[#E8DED2] shadow-sm relative overflow-hidden"
               >
                 <div className="font-serif text-4xl font-extrabold text-[#EFE4D3] absolute top-4 right-4 select-none">
@@ -49,7 +50,7 @@ export const HowItWorksAndFaq: React.FC = () => {
       {/* FAQ Section */}
       <section id="faq" className="py-16 sm:py-20 bg-[#FAF6EE] scroll-mt-14">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
+          <div className="text-center mb-10" data-reveal>
             <span className="text-xs font-semibold tracking-widest text-[#B3242E] uppercase font-sans">
               Antes de encomendar
             </span>
@@ -66,6 +67,7 @@ export const HowItWorksAndFaq: React.FC = () => {
               {FAQ_ITEMS.map((item, index) => (
                 <AccordionItem
                   key={index}
+                  data-reveal
                   value={`item-${index}`}
                   className="border-b border-[#F0E6D8] last:border-b-0 py-1"
                 >
