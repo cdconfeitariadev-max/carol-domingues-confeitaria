@@ -1,48 +1,48 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Download, Loader2, MessageCircle, Sparkles, Heart } from 'lucide-react'
+import {
+  ArrowLeft,
+  Download,
+  Loader2,
+  MessageCircle,
+  Sparkles,
+  Heart,
+  CheckCircle2,
+} from 'lucide-react'
 import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from '@/data/catalog'
 import { CARDAPIO_CATEGORIAS, CardapioCard } from '@/components/cardapio/CardapioCard'
+import { CardapioPdfStage } from '@/components/cardapio/PdfStage'
+import { gerarPdfCardapio } from '@/lib/pdfCardapio'
 
 const TITULO_DOCUMENTO = 'Tem Carol no seu Natal • Coleção 2026 — Cardápio'
 
-/** Guarda o instante do último disparo automático: evita abrir a janela duas vezes
+/** Guarda o instante do último disparo automático: evita baixar o PDF duas vezes
  * (remontagem rápida da rota / StrictMode). O botão manual nunca é bloqueado. */
-let ultimaImpressaoAutomatica = 0
+let ultimoDownloadAutomatico = 0
 
-/** Espera as fotos do cardápio terminarem de carregar (hotlinks do Drive incluídos),
- * com um teto de tempo para não travar a página se alguma imagem falhar. */
-const aguardarImagens = (raiz: HTMLElement, limiteMs = 5000): Promise<void> => {
-  const imagens = Array.from(raiz.querySelectorAll('img')).filter(
-    (img) => !img.complete || img.naturalWidth === 0,
-  )
-  if (imagens.length === 0) return Promise.resolve()
-  return new Promise((resolve) => {
-    let pendentes = imagens.length
-    const temporizador = setTimeout(() => {
-      pendentes = 0
-      resolve()
-    }, limiteMs)
-    const conferir = () => {
-      if (pendentes === 0) return
-      pendentes -= 1
-      if (pendentes <= 0) {
-        clearTimeout(temporizador)
-        resolve()
-      }
-    }
-    imagens.forEach((img) => {
-      img.addEventListener('load', conferir, { once: true })
-      img.addEventListener('error', conferir, { once: true })
-    })
-  })
-}
+type Estado = 'preparando' | 'pronto' | 'erro'
 
 export const Cardapio: React.FC = () => {
-  const raizRef = useRef<HTMLDivElement>(null)
-  const [preparando, setPreparando] = useState(true)
+  const [estado, setEstado] = useState<Estado>('preparando')
+  const gerandoRef = useRef(false)
 
-  // O título da aba vira o nome sugerido do PDF ao salvar pela janela de impressão.
+  const baixarPdf = useCallback(async (automatico: boolean) => {
+    if (gerandoRef.current) return
+    gerandoRef.current = true
+    setEstado('preparando')
+    try {
+      await gerarPdfCardapio()
+      if (automatico) ultimoDownloadAutomatico = Date.now()
+      setEstado('pronto')
+    } catch (erro) {
+      console.error('Falha ao gerar o PDF do cardápio:', erro)
+      setEstado('erro')
+    } finally {
+      gerandoRef.current = false
+    }
+  }, [])
+
+  // O título da aba vira o nome sugerido do PDF baixado.
   useEffect(() => {
     const anterior = document.title
     document.title = TITULO_DOCUMENTO
@@ -51,35 +51,35 @@ export const Cardapio: React.FC = () => {
     }
   }, [])
 
-  // Ao ENTRAR na rota (uma única vez, não em re-render), abre a janela de
-  // impressão/PDF automaticamente — primeiro espera as fotos carregarem.
+  // Ao ENTRAR na rota (uma única vez, não em re-render), baixa o PDF automaticamente.
   useEffect(() => {
-    if (Date.now() - ultimaImpressaoAutomatica < 4000) {
-      setPreparando(false)
+    if (Date.now() - ultimoDownloadAutomatico < 4000) {
+      setEstado('pronto')
       return
     }
     let cancelado = false
-    aguardarImagens(raizRef.current ?? document.body)
-      // Pequeno delay de segurança para fontes e layout assentarem antes do print.
-      .then(() => new Promise<void>((resolve) => setTimeout(resolve, 500)))
-      .then(() => {
-        if (cancelado) return
-        ultimaImpressaoAutomatica = Date.now()
-        setPreparando(false)
-        window.print()
-      })
+    const disparo = setTimeout(() => {
+      if (!cancelado) void baixarPdf(true)
+    }, 600)
     return () => {
       cancelado = true
+      clearTimeout(disparo)
     }
-  }, [])
+  }, [baixarPdf])
+
+  const rotuloBotao =
+    estado === 'preparando'
+      ? 'Preparando o PDF…'
+      : estado === 'erro'
+        ? 'Tentar de novo'
+        : 'Baixar cardápio em PDF'
 
   return (
-    <div
-      ref={raizRef}
-      className="cardapio-print-root min-h-screen w-full bg-[#FAF6EE] text-[#342822]"
-    >
-      {/* Barra de ações: some na impressão */}
-      <div className="print:hidden sticky top-0 z-40 bg-[#FAF6EE]/95 backdrop-blur-md border-b border-[#E8DFD3]">
+    <div className="relative min-h-screen w-full bg-[#FAF6EE] text-[#342822]">
+      <CardapioPdfStage />
+
+      {/* Barra de ações */}
+      <div className="sticky top-0 z-40 bg-[#FAF6EE]/95 backdrop-blur-md border-b border-[#E8DFD3]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
           <Link
             to="/"
@@ -90,28 +90,31 @@ export const Cardapio: React.FC = () => {
           </Link>
           <button
             type="button"
-            onClick={() => window.print()}
-            disabled={preparando}
+            onClick={() => void baixarPdf(false)}
+            disabled={estado === 'preparando'}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B3242E] hover:bg-[#8F1A22] disabled:opacity-70 disabled:cursor-wait text-[#FAF6EE] text-xs sm:text-sm font-semibold shadow-sm transition-all active:scale-95"
           >
-            {preparando ? (
+            {estado === 'preparando' ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
               <Download className="w-4 h-4" />
             )}
-            <span>{preparando ? 'Preparando o PDF…' : 'Salvar em PDF'}</span>
+            <span>{rotuloBotao}</span>
           </button>
         </div>
-        <p className="print:hidden max-w-5xl mx-auto px-4 sm:px-6 pb-2 text-[11px] text-[#8A7566]">
-          {preparando
-            ? 'A janela de salvar PDF vai abrir sozinha assim que as fotos terminarem de carregar.'
-            : 'Cancelou a janela? Clique abaixo para abrir de novo — ou escolha “Salvar como PDF” como destino.'}
+        <p className="max-w-5xl mx-auto px-4 sm:px-6 pb-2 text-[11px] text-[#8A7566]">
+          {estado === 'preparando'
+            ? 'O download do PDF começa sozinho assim que as fotos terminarem de carregar.'
+            : estado === 'erro'
+              ? 'Algo falhou ao montar o PDF. Clique no botão para tentar de novo.'
+              : 'O PDF foi baixado automaticamente. Quer de novo? É só clicar no botão acima.'}
         </p>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 print:max-w-none print:px-0 print:py-0">
+      {/* Pré-visualização do cardápio no navegador */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Cabeçalho festivo */}
-        <header className="break-inside-avoid relative rounded-3xl border border-[#E4D7C5] bg-white shadow-sm overflow-hidden mb-10 print:shadow-none print:mb-6">
+        <header className="relative rounded-3xl border border-[#E4D7C5] bg-white shadow-sm overflow-hidden mb-10">
           <div className="bg-[#8A1A22] text-[#FDEBD2] text-[11px] sm:text-xs py-1.5 px-3 text-center tracking-wide font-medium flex items-center justify-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-[#E5B55A] shrink-0" />
             <span>COLEÇÃO DE NATAL 2026</span>
@@ -137,8 +140,8 @@ export const Cardapio: React.FC = () => {
 
         {/* Categorias */}
         {CARDAPIO_CATEGORIAS.map((categoria) => (
-          <section key={categoria.id} className="mb-12 print:mb-8">
-            <div className="break-after-avoid text-center mb-6">
+          <section key={categoria.id} className="mb-12">
+            <div className="text-center mb-6">
               <span className="text-xs font-semibold tracking-widest text-[#B3242E] uppercase">
                 Cardápio
               </span>
@@ -149,7 +152,7 @@ export const Cardapio: React.FC = () => {
                 {categoria.intro}
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4 sm:gap-6 print:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {categoria.items.map((item) => (
                 <CardapioCard key={item.id} item={item} />
               ))}
@@ -158,7 +161,7 @@ export const Cardapio: React.FC = () => {
         ))}
 
         {/* Rodapé: contato e copyright */}
-        <footer className="break-inside-avoid bg-[#2D211A] text-[#D8C9B9] rounded-2xl px-6 py-8 space-y-4 text-center">
+        <footer className="bg-[#2D211A] text-[#D8C9B9] rounded-2xl px-6 py-8 space-y-4 text-center">
           <h3 className="font-serif text-xl font-bold text-[#FAF6EE] tracking-wide">
             CAROL DOMINGUES
           </h3>
@@ -187,6 +190,15 @@ export const Cardapio: React.FC = () => {
             </p>
           </div>
         </footer>
+
+        {estado === 'pronto' && (
+          <div className="mt-8 flex justify-center">
+            <span className="inline-flex items-center gap-2 text-xs text-[#3E7A4E] bg-[#EAF4EC] border border-[#CFE4D4] rounded-full px-4 py-2">
+              <CheckCircle2 className="w-4 h-4" />
+              PDF baixado automaticamente. Quer de novo? Use o botão lá em cima.
+            </span>
+          </div>
+        )}
       </div>
     </div>
   )
