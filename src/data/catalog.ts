@@ -99,6 +99,14 @@ const NINHO_NUTELLA_FOTOS = [
   'https://lh3.googleusercontent.com/d/1D5D4Qf3e0kQoCvLNdEbWe8FgYcdRT5uu',
 ]
 
+/** Galeria do Kinder, na ordem: 01 panetone inteiro com cobertura de chocolate e trufas no topo (capa), 02 cobertura branca com trufas, 03 vista de cima, 04 fatiado com recheio no prato. Fotos hotlinkadas do Google Drive. */
+const KINDER_FOTOS = [
+  'https://lh3.googleusercontent.com/d/1xPkGIdC0QO6OcD3xJUDZW_vQ5wX7FaQo=w1200',
+  'https://lh3.googleusercontent.com/d/1MTJX8kQVPfMASkc3o0ILFCs20I-1zqQQ=w1200',
+  'https://lh3.googleusercontent.com/d/1nBjnfxAJ29kbFruPwCOohxc5B91GZOwE=w1200',
+  'https://lh3.googleusercontent.com/d/13g-cDrC7RNhgwx_PrjAQ7M4mGBDcc1nF=w1200',
+]
+
 /** Galeria da Guirlanda de Brownie, na ordem: 01 capa de frente com o laço, 02 vista em ângulo, 03 vista de cima. */
 const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
 
@@ -237,8 +245,8 @@ export const PANETTONES: Product[] = [
     flavorCategory: 'ninho',
     description:
       'Recheio de mousse de Ninho e mousse de Nutella. Cobertura de chocolate branco nobre e Kinder Bueno.',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/kinder-v10.webp',
+    image: KINDER_FOTOS[0],
+    images: KINDER_FOTOS,
     highlight: true,
   },
 ]
