@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Instagram, MessageCircle, Heart } from 'lucide-react'
 import { INSTAGRAM_URL, WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from '@/data/catalog'
 
@@ -51,6 +52,15 @@ export const Footer: React.FC = () => {
                 <a href="#faq" className="hover:text-[#FAF6EE] transition-colors">
                   Dúvidas Frequentes
                 </a>
+              </li>
+              <li className="pt-1">
+                <Link
+                  to="/cardapio"
+                  className="inline-flex items-center gap-1.5 text-[#D9A441] hover:text-[#FAF6EE] font-semibold transition-colors"
+                >
+                  <span>Baixar cardápio em PDF</span>
+                  <span>→</span>
+                </Link>
               </li>
             </ul>
           </div>

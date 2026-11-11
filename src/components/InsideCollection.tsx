@@ -1,24 +1,11 @@
 import React, { useState } from 'react'
-import { FileText, Sparkles, CheckCircle2, Eye, Loader2 } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { FileText, Sparkles, CheckCircle2, Eye } from 'lucide-react'
 import { INSIDE_COLLECTION_TABS } from '@/data/catalog'
-import { downloadCardapioPdf } from '@/lib/cardapioPdf'
 import panetonesColecaoImg from '@/assets/panetone-trufado-com-chocolate-e-creme-0e0e3.png'
 
 export const InsideCollection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'recheios' | 'coberturas' | 'sabores'>('recheios')
-  const [isGenerating, setIsGenerating] = useState(false)
-
-  const handleDownloadPdf = () => {
-    setIsGenerating(true)
-    // deixa o estado pintar antes da geração (é rápida, mas evita clique duplo)
-    setTimeout(() => {
-      try {
-        downloadCardapioPdf()
-      } finally {
-        setIsGenerating(false)
-      }
-    }, 30)
-  }
 
   const tabData = INSIDE_COLLECTION_TABS[activeTab]
 
@@ -120,19 +107,13 @@ export const InsideCollection: React.FC = () => {
             </div>
 
             <div className="flex flex-wrap items-center gap-4">
-              <button
-                type="button"
-                onClick={handleDownloadPdf}
-                disabled={isGenerating}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#342822] hover:bg-[#1E1713] text-[#FAF6EE] text-xs sm:text-sm font-semibold shadow transition-all active:scale-95 disabled:opacity-70"
+              <Link
+                to="/cardapio"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#342822] hover:bg-[#1E1713] text-[#FAF6EE] text-xs sm:text-sm font-semibold shadow transition-all active:scale-95"
               >
-                {isGenerating ? (
-                  <Loader2 className="w-4 h-4 text-[#D9A441] animate-spin" />
-                ) : (
-                  <FileText className="w-4 h-4 text-[#D9A441]" />
-                )}
-                <span>Baixar o cardápio · PDF</span>
-              </button>
+                <FileText className="w-4 h-4 text-[#D9A441]" />
+                <span>Ver o cardápio · PDF</span>
+              </Link>
             </div>
           </div>
         </div>

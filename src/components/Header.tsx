@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Sparkles, ShoppingBag } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Sparkles, ShoppingBag, FileText } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 
 export const Header: React.FC = () => {
@@ -81,6 +82,15 @@ export const Header: React.FC = () => {
 
           {/* Action CTAs */}
           <div className="flex items-center gap-2">
+            <Link
+              to="/cardapio"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#EFE7DC] hover:bg-[#E4D9CC] text-[#3A2A20] hover:text-[#B3242E] text-xs font-semibold transition-colors"
+              title="Abrir cardápio para salvar em PDF"
+            >
+              <FileText className="w-3.5 h-3.5 text-[#B3242E]" />
+              <span>Cardápio PDF</span>
+            </Link>
+
             {totalCount > 0 && (
               <button
                 onClick={() => setIsSelectionOpen(true)}

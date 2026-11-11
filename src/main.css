@@ -116,3 +116,22 @@
     animation: snowfall 11s linear infinite 4s;
   }
 }
+
+/* Cardápio para impressão / PDF (rota /cardapio): A4, cores e fundos preservados */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  .cardapio-print-root {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background: #faf6ee !important;
+  }
+
+  .cardapio-print-root img {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
