@@ -1,12 +1,47 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Download, MessageCircle, Sparkles, Heart } from 'lucide-react'
+import { ArrowLeft, Download, Loader2, MessageCircle, Sparkles, Heart } from 'lucide-react'
 import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from '@/data/catalog'
 import { CARDAPIO_CATEGORIAS, CardapioCard } from '@/components/cardapio/CardapioCard'
 
 const TITULO_DOCUMENTO = 'Tem Carol no seu Natal • Coleção 2026 — Cardápio'
 
+/** Guarda o instante do último disparo automático: evita abrir a janela duas vezes
+ * (remontagem rápida da rota / StrictMode). O botão manual nunca é bloqueado. */
+let ultimaImpressaoAutomatica = 0
+
+/** Espera as fotos do cardápio terminarem de carregar (hotlinks do Drive incluídos),
+ * com um teto de tempo para não travar a página se alguma imagem falhar. */
+const aguardarImagens = (raiz: HTMLElement, limiteMs = 5000): Promise<void> => {
+  const imagens = Array.from(raiz.querySelectorAll('img')).filter(
+    (img) => !img.complete || img.naturalWidth === 0,
+  )
+  if (imagens.length === 0) return Promise.resolve()
+  return new Promise((resolve) => {
+    let pendentes = imagens.length
+    const temporizador = setTimeout(() => {
+      pendentes = 0
+      resolve()
+    }, limiteMs)
+    const conferir = () => {
+      if (pendentes === 0) return
+      pendentes -= 1
+      if (pendentes <= 0) {
+        clearTimeout(temporizador)
+        resolve()
+      }
+    }
+    imagens.forEach((img) => {
+      img.addEventListener('load', conferir, { once: true })
+      img.addEventListener('error', conferir, { once: true })
+    })
+  })
+}
+
 export const Cardapio: React.FC = () => {
+  const raizRef = useRef<HTMLDivElement>(null)
+  const [preparando, setPreparando] = useState(true)
+
   // O título da aba vira o nome sugerido do PDF ao salvar pela janela de impressão.
   useEffect(() => {
     const anterior = document.title
@@ -16,8 +51,33 @@ export const Cardapio: React.FC = () => {
     }
   }, [])
 
+  // Ao ENTRAR na rota (uma única vez, não em re-render), abre a janela de
+  // impressão/PDF automaticamente — primeiro espera as fotos carregarem.
+  useEffect(() => {
+    if (Date.now() - ultimaImpressaoAutomatica < 4000) {
+      setPreparando(false)
+      return
+    }
+    let cancelado = false
+    aguardarImagens(raizRef.current ?? document.body)
+      // Pequeno delay de segurança para fontes e layout assentarem antes do print.
+      .then(() => new Promise<void>((resolve) => setTimeout(resolve, 500)))
+      .then(() => {
+        if (cancelado) return
+        ultimaImpressaoAutomatica = Date.now()
+        setPreparando(false)
+        window.print()
+      })
+    return () => {
+      cancelado = true
+    }
+  }, [])
+
   return (
-    <div className="cardapio-print-root min-h-screen w-full bg-[#FAF6EE] text-[#342822]">
+    <div
+      ref={raizRef}
+      className="cardapio-print-root min-h-screen w-full bg-[#FAF6EE] text-[#342822]"
+    >
       {/* Barra de ações: some na impressão */}
       <div className="print:hidden sticky top-0 z-40 bg-[#FAF6EE]/95 backdrop-blur-md border-b border-[#E8DFD3]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
@@ -31,14 +91,21 @@ export const Cardapio: React.FC = () => {
           <button
             type="button"
             onClick={() => window.print()}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B3242E] hover:bg-[#8F1A22] text-[#FAF6EE] text-xs sm:text-sm font-semibold shadow-sm transition-all active:scale-95"
+            disabled={preparando}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B3242E] hover:bg-[#8F1A22] disabled:opacity-70 disabled:cursor-wait text-[#FAF6EE] text-xs sm:text-sm font-semibold shadow-sm transition-all active:scale-95"
           >
-            <Download className="w-4 h-4" />
-            <span>Salvar em PDF</span>
+            {preparando ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Download className="w-4 h-4" />
+            )}
+            <span>{preparando ? 'Preparando o PDF…' : 'Salvar em PDF'}</span>
           </button>
         </div>
         <p className="print:hidden max-w-5xl mx-auto px-4 sm:px-6 pb-2 text-[11px] text-[#8A7566]">
-          Na janela de impressão, escolha “Salvar como PDF” como destino.
+          {preparando
+            ? 'A janela de salvar PDF vai abrir sozinha assim que as fotos terminarem de carregar.'
+            : 'Cancelou a janela? Clique abaixo para abrir de novo — ou escolha “Salvar como PDF” como destino.'}
         </p>
       </div>
 
