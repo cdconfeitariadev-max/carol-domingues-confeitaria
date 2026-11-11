@@ -107,6 +107,13 @@ const KINDER_FOTOS = [
   'https://lh3.googleusercontent.com/d/13g-cDrC7RNhgwx_PrjAQ7M4mGBDcc1nF=w1200',
 ]
 
+/** Galeria da Sobremesa Natalina, na ordem: 01 sobremesa em camadas no copo com morangos e mirtilos cercada de pinhas (capa), 02 close, 03 vista de cima. Fotos hotlinkadas do Google Drive. */
+const SOBREMESA_NATALINA_FOTOS = [
+  'https://lh3.googleusercontent.com/d/1oAf3JRczQ7-QhaS71FDYRZemR-vfpD7a',
+  'https://lh3.googleusercontent.com/d/1Ca2_7l_YCe-U8OnNx6I2cy_kSbVj7g5P',
+  'https://lh3.googleusercontent.com/d/1BlRCWbAxz4zIA2gC5rfxGTAhsMhGtXhi',
+]
+
 /** Galeria da Guirlanda de Brownie, na ordem: 01 capa de frente com o laço, 02 vista em ângulo, 03 vista de cima. */
 const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
 
