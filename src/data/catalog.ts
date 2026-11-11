@@ -283,8 +283,8 @@ export const DESSERTS: Dessert[] = [
   {
     id: 'sobremesa-camadas',
     name: 'Sobremesa Natalina',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/sobremesa-camadas-v10.webp',
+    image: SOBREMESA_NATALINA_FOTOS[0],
+    images: SOBREMESA_NATALINA_FOTOS,
     alt: 'Sobremesa em recipiente de vidro, com camadas aparentes e decoração no topo',
     description:
       'Mousse de chocolate meio amargo, geleia de frutas vermelhas artesanal e massa de chocotone.',
