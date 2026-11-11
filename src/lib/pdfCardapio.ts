@@ -117,13 +117,11 @@ export const gerarPdfCardapio = async (): Promise<void> => {
   const larguraUtil = A4_LARGURA_MM - 2 * MARGEM_MM
   const alturaUtil = A4_ALTURA_MM - 2 * MARGEM_MM
 
-  let pagina = pdf
   let y = MARGEM_MM
   let primeira = true
 
   const novaPagina = () => {
     pdf.addPage()
-    pagina = pdf
     y = MARGEM_MM
   }
 
