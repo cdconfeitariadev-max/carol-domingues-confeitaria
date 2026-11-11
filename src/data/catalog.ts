@@ -232,7 +232,6 @@ export const PANETTONES: Product[] = [
       'Recheio de brigadeiro Ninho com Nutella. Cobertura de chocolate branco nobre com Nutella.',
     image: NINHO_NUTELLA_FOTOS[0],
     images: NINHO_NUTELLA_FOTOS,
-    highlight: true,
   },
   {
     id: 'kinder',
@@ -247,7 +246,6 @@ export const PANETTONES: Product[] = [
       'Recheio de mousse de Ninho e mousse de Nutella. Cobertura de chocolate branco nobre e Kinder Bueno.',
     image: KINDER_FOTOS[0],
     images: KINDER_FOTOS,
-    highlight: true,
   },
 ]
 
