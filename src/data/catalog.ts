@@ -83,6 +83,14 @@ const DOIS_AMORES_FOTOS = [
   'https://lh3.googleusercontent.com/d/1jIjSjKW5K8KHd0uXOjqnnkxejywZVSnS',
 ]
 
+/** Galeria do Meio Amargo, na ordem: 01 panetone inteiro com brigadeiros no topo (capa), 02 close da cobertura brilhante, 03 vista de cima com os três brigadeiros, 04 fatiado com recheio no prato. Fotos hotlinkadas do Google Drive. */
+const MEIO_AMARGO_FOTOS = [
+  'https://lh3.googleusercontent.com/d/1IhB7WNGDP0Dw0yG2M27iBGvoWE5nPCn0',
+  'https://lh3.googleusercontent.com/d/1csPlABsy4gNKaZGwnjfjbsiNzb35U5LB',
+  'https://lh3.googleusercontent.com/d/1Ma4yTeNTG57ZN73-ZqRKxvjOtYC-lk3_',
+  'https://lh3.googleusercontent.com/d/1D0wjd4JT5z4eu0Rh6Ykq_c5AwWSx6JKQ',
+]
+
 /** Galeria da Guirlanda de Brownie, na ordem: 01 capa de frente com o laço, 02 vista em ângulo, 03 vista de cima. */
 const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
 
@@ -192,8 +200,8 @@ export const PANETTONES: Product[] = [
     flavorCategory: 'chocolate',
     description:
       'Recheio de brigadeiro de chocolate meio amargo e cobertura de chocolate nobre meio amargo.',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/meio-amargo-v10.webp',
+    image: MEIO_AMARGO_FOTOS[0],
+    images: MEIO_AMARGO_FOTOS,
   },
   {
     id: 'ninho-nutella',
