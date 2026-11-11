@@ -91,6 +91,14 @@ const MEIO_AMARGO_FOTOS = [
   'https://lh3.googleusercontent.com/d/1D0wjd4JT5z4eu0Rh6Ykq_c5AwWSx6JKQ',
 ]
 
+/** Galeria do Ninho com Nutella, na ordem: 01 panetone inteiro (capa), 02 close dos brigadeiros, 03 vista de cima, 04 fatiado. Fotos hotlinkadas do Google Drive. */
+const NINHO_NUTELLA_FOTOS = [
+  'https://lh3.googleusercontent.com/d/1L-71vH7cbpAw--ahv6rgTh4wvHeByYOT',
+  'https://lh3.googleusercontent.com/d/1wuFXnaOo7L_oRru86vo0daJfsv1vLSvc',
+  'https://lh3.googleusercontent.com/d/1tG62pNOdgw09EHr4NWbOh0fMnSSr155H',
+  'https://lh3.googleusercontent.com/d/1D5D4Qf3e0kQoCvLNdEbWe8FgYcdRT5uu',
+]
+
 /** Galeria da Guirlanda de Brownie, na ordem: 01 capa de frente com o laço, 02 vista em ângulo, 03 vista de cima. */
 const GUIRLANDA_FOTOS = [guirlanda01, guirlanda02, guirlanda03]
 
@@ -214,8 +222,8 @@ export const PANETTONES: Product[] = [
     flavorCategory: 'ninho',
     description:
       'Recheio de brigadeiro Ninho com Nutella. Cobertura de chocolate branco nobre com Nutella.',
-    image:
-      'https://carol-domingues-natal-2026.nathygarcia85.chatgpt.site/assets/optimized/ninho-nutella-v10.webp',
+    image: NINHO_NUTELLA_FOTOS[0],
+    images: NINHO_NUTELLA_FOTOS,
     highlight: true,
   },
   {
