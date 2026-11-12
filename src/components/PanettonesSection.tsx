@@ -7,23 +7,12 @@ import { ProductGallery, ProductGalleryDialog } from '@/components/ProductGaller
 
 export const PanettonesSection: React.FC = () => {
   const [filterCategory, setFilterCategory] = useState<'all' | 'classicos' | 'especiais'>('all')
-  const [flavorTag, setFlavorTag] = useState<string | null>(null)
   const { addItem, getItemQuantity, formatCurrency } = useCart()
 
-  // Filter products based on selected tab and flavor chips
+  // Filter products based on selected tab
   const filteredPanettones = useMemo(() => {
-    return PANETTONES.filter((item) => {
-      if (filterCategory !== 'all' && item.category !== filterCategory) {
-        return false
-      }
-      if (flavorTag) {
-        if (flavorTag === 'chocolate' && item.flavorCategory !== 'chocolate') return false
-        if (flavorTag === 'fruta' && item.flavorCategory !== 'fruta') return false
-        if (flavorTag === 'ninho' && item.flavorCategory !== 'ninho') return false
-      }
-      return true
-    })
-  }, [filterCategory, flavorTag])
+    return PANETTONES.filter((item) => filterCategory === 'all' || item.category === filterCategory)
+  }, [filterCategory])
 
   const classicos = useMemo(
     () => filteredPanettones.filter((p) => p.category === 'classicos'),
@@ -187,63 +176,13 @@ export const PanettonesSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Discovery Guide Chips */}
-        <div className="bg-white/80 border border-[#EBE1D4] rounded-2xl p-5 mb-8 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#342822] block sm:inline mr-2">
-                Encontre seu sabor:
-              </span>
-              <span className="text-xs text-[#7A695B]">Chocolate, fruta ou Ninho+</span>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                onClick={() => setFlavorTag(flavorTag === 'chocolate' ? null : 'chocolate')}
-                className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
-                  flavorTag === 'chocolate'
-                    ? 'bg-[#4A2D1B] text-white border-[#4A2D1B]'
-                    : 'bg-[#FAF6EE] text-[#5C483B] border-[#E2D5C4] hover:bg-[#F2E7D7]'
-                }`}
-              >
-                <strong>Chocolate em destaque</strong> · Brigadeiro, dois amores e meio amargo
-              </button>
-
-              <button
-                onClick={() => setFlavorTag(flavorTag === 'fruta' ? null : 'fruta')}
-                className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
-                  flavorTag === 'fruta'
-                    ? 'bg-[#B3242E] text-white border-[#B3242E]'
-                    : 'bg-[#FAF6EE] text-[#5C483B] border-[#E2D5C4] hover:bg-[#F2E7D7]'
-                }`}
-              >
-                <strong>Um toque de fruta</strong> · Frutas cristalizadas ou maracujá
-              </button>
-
-              <button
-                onClick={() => setFlavorTag(flavorTag === 'ninho' ? null : 'ninho')}
-                className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
-                  flavorTag === 'ninho'
-                    ? 'bg-[#C9983A] text-white border-[#C9983A]'
-                    : 'bg-[#FAF6EE] text-[#5C483B] border-[#E2D5C4] hover:bg-[#F2E7D7]'
-                }`}
-              >
-                <strong>Combinações com Ninho</strong> · Encontros com chocolate e Nutella
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* Category Tabs & Counter */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-10 pb-4 border-b border-[#E8DFD3]">
           <div className="flex items-center gap-2">
             <button
-              onClick={() => {
-                setFilterCategory('all')
-                setFlavorTag(null)
-              }}
+              onClick={() => setFilterCategory('all')}
               className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
-                filterCategory === 'all' && !flavorTag
+                filterCategory === 'all'
                   ? 'bg-[#342822] text-[#FAF6EE] shadow-sm'
                   : 'bg-white text-[#665447] hover:bg-[#EFE5D7] border border-[#E4D7C5]'
               }`}
@@ -251,12 +190,9 @@ export const PanettonesSection: React.FC = () => {
               Toda a coleção
             </button>
             <button
-              onClick={() => {
-                setFilterCategory('classicos')
-                setFlavorTag(null)
-              }}
+              onClick={() => setFilterCategory('classicos')}
               className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
-                filterCategory === 'classicos' && !flavorTag
+                filterCategory === 'classicos'
                   ? 'bg-[#342822] text-[#FAF6EE] shadow-sm'
                   : 'bg-white text-[#665447] hover:bg-[#EFE5D7] border border-[#E4D7C5]'
               }`}
@@ -264,12 +200,9 @@ export const PanettonesSection: React.FC = () => {
               Clássicos
             </button>
             <button
-              onClick={() => {
-                setFilterCategory('especiais')
-                setFlavorTag(null)
-              }}
+              onClick={() => setFilterCategory('especiais')}
               className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
-                filterCategory === 'especiais' && !flavorTag
+                filterCategory === 'especiais'
                   ? 'bg-[#342822] text-[#FAF6EE] shadow-sm'
                   : 'bg-white text-[#665447] hover:bg-[#EFE5D7] border border-[#E4D7C5]'
               }`}
