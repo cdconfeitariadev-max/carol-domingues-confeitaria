@@ -177,7 +177,7 @@ export const PanettonesSection: React.FC = () => {
         </div>
 
         {/* Category Tabs & Counter */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-10 pb-4 border-b border-[#E8DFD3]">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-[#E8DFD3]">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setFilterCategory('all')}
