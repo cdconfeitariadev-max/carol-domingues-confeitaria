@@ -92,7 +92,7 @@ export const Footer: React.FC = () => {
               </a>
             </div>
             <p className="text-[11px] text-[#9E8E81] pt-2">
-              Atendimento e confirmação de encomendas sob consulta.
+              Dúvidas de entrega e prazos? WhatsApp {WHATSAPP_DISPLAY}
             </p>
           </div>
         </div>

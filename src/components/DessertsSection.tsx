@@ -1,6 +1,6 @@
 import React from 'react'
 import { Plus, Check, Sparkles } from 'lucide-react'
-import { DESSERTS, Dessert, DessertSize, productImages } from '@/data/catalog'
+import { DESSERTS, Dessert, DessertSize, productImages, WHATSAPP_DISPLAY } from '@/data/catalog'
 import { useCart } from '@/context/CartContext'
 import { WhatsAppOrderButton, buildProductOrderMessage } from '@/components/WhatsAppOrderButton'
 import { ProductGallery, ProductGalleryDialog } from '@/components/ProductGallery'
@@ -133,7 +133,7 @@ export const DessertsSection: React.FC = () => {
         >
           <Sparkles className="w-6 h-6 text-[#D9A441] mx-auto mb-2" />
           <p className="text-sm sm:text-base font-medium text-[#4A3B32]">
-            Consulte sabores, tamanhos e valores diretamente com a Carol.
+            Dúvidas de entrega e prazos? WhatsApp {WHATSAPP_DISPLAY}
           </p>
         </div>
       </div>

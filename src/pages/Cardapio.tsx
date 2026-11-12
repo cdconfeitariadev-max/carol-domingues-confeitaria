@@ -177,7 +177,7 @@ export const Cardapio: React.FC = () => {
             <span className="text-[#9E8E81]">Instagram: @caroldominguesconfeitaria</span>
           </div>
           <p className="text-[11px] text-[#9E8E81]">
-            Atendimento e confirmação de encomendas sob consulta.
+            Dúvidas de entrega e prazos? WhatsApp {WHATSAPP_DISPLAY}
           </p>
           <div className="pt-4 border-t border-[#443328] text-[11px] text-[#8F7E70] flex flex-col sm:flex-row items-center justify-between gap-2">
             <p>

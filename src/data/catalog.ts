@@ -136,6 +136,8 @@ export const productImages = (item: { image: string; images?: string[] }): strin
 export interface FaqItem {
   question: string
   answer: string
+  /** Quando verdadeiro, renderiza o botão "Tirar dúvidas no WhatsApp" abaixo da resposta. */
+  whatsappCta?: boolean
 }
 
 export const INSTAGRAM_URL = 'https://www.instagram.com/caroldominguesconfeitaria/'
@@ -350,17 +352,12 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Como faço para encomendar?',
     answer:
-      'Adicione seus favoritos à seleção, ajuste as quantidades e copie a lista. Depois, abra o Instagram da Carol ou envie pelo WhatsApp para confirmar a encomenda com a equipe.',
+      'Adicione seus favoritos à seleção, ajuste as quantidades e envie pelo WhatsApp para confirmar a encomenda com a Carol.',
   },
   {
     question: 'Qual é o prazo? Há retirada ou entrega?',
-    answer:
-      'Prazo, disponibilidade, pagamento e opções de retirada ou entrega são confirmados diretamente com a Carol antes da encomenda.',
-  },
-  {
-    question: 'Onde vejo os sabores e valores das sobremesas?',
-    answer:
-      'As fotos apresentam outras criações da confeitaria. Consulte a Carol para confirmar os sabores, os tamanhos e os valores disponíveis.',
+    answer: 'Fale direto com a Carol pelo WhatsApp',
+    whatsappCta: true,
   },
   {
     question: 'Tenho uma restrição alimentar. Como consultar?',
@@ -372,19 +369,18 @@ export const FAQ_ITEMS: FaqItem[] = [
 export const HOW_IT_WORKS = [
   {
     step: '01',
-    title: 'Encontre seu sabor',
-    description: 'Confira os recheios, os pesos e os valores da coleção.',
+    title: 'Veja o cardápio',
+    description: 'Fotos, sabores e valores',
   },
   {
     step: '02',
-    title: 'Faça sua seleção',
-    description:
-      'Adicione os produtos e ajuste as quantidades. A lista fica salva no seu navegador.',
+    title: 'Escolha seus favoritos',
+    description: 'Adicione à seleção e ajuste as quantidades',
   },
   {
     step: '03',
-    title: 'Converse com a Carol',
-    description: 'Copie a lista e envie pelo WhatsApp ou Instagram para consultar as condições.',
+    title: 'Peça pelo WhatsApp',
+    description: `Envie a seleção para ${WHATSAPP_DISPLAY}`,
   },
 ]
 

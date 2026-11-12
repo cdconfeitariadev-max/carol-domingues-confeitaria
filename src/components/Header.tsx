@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
       {/* Top micro banner */}
       <div className="bg-[#8A1A22] text-[#FDEBD2] text-[11px] sm:text-xs py-1.5 px-3 text-center tracking-wide font-medium flex items-center justify-center gap-2">
         <Sparkles className="w-3.5 h-3.5 text-[#E5B55A] animate-pulse shrink-0" />
-        <span>COLEÇÃO DE NATAL 2026 • prévia com condições de encomenda em confirmação</span>
+        <span>Encomendas abertas · Coleção de Natal 2026</span>
       </div>
 
       {/* Sticky Main Navigation */}

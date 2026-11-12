@@ -1,6 +1,6 @@
 import React from 'react'
 import { Sparkles, MessageCircle } from 'lucide-react'
-import { HOW_IT_WORKS, FAQ_ITEMS, WHATSAPP_NUMBER } from '@/data/catalog'
+import { HOW_IT_WORKS, FAQ_ITEMS, WHATSAPP_NUMBER, WHATSAPP_DISPLAY } from '@/data/catalog'
 import mascotePresente from '@/assets/saco-confeitarpresente-2b14a.png'
 import {
   Accordion,
@@ -76,6 +76,17 @@ export const HowItWorksAndFaq: React.FC = () => {
                   </AccordionTrigger>
                   <AccordionContent className="text-xs sm:text-sm text-[#665447] leading-relaxed pb-4">
                     {item.answer}
+                    {item.whatsappCta && (
+                      <a
+                        href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-semibold shadow-sm transition-all active:scale-95"
+                      >
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        <span>Tirar dúvidas no WhatsApp</span>
+                      </a>
+                    )}
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -108,8 +119,7 @@ export const HowItWorksAndFaq: React.FC = () => {
           </div>
 
           <p className="text-[11px] sm:text-xs text-[#8A7566] leading-relaxed max-w-lg mb-8">
-            Prazo, disponibilidade, pagamento e retirada ou entrega serão confirmados diretamente
-            com a confeitaria. A seleção é uma lista de interesse e não confirma uma encomenda.
+            Dúvidas de entrega e prazos? WhatsApp {WHATSAPP_DISPLAY}
           </p>
 
           <img

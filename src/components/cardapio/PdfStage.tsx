@@ -102,7 +102,7 @@ export const CardapioPdfStage: React.FC = () => {
             <span className="text-[#9E8E81]">Instagram: @caroldominguesconfeitaria</span>
           </div>
           <p className="text-[10px] text-[#9E8E81]">
-            Atendimento e confirmação de encomendas sob consulta.
+            Dúvidas de entrega e prazos? WhatsApp {WHATSAPP_DISPLAY}
           </p>
           <div className="pt-3 border-t border-[#443328] text-[10px] text-[#8F7E70] flex flex-col items-center gap-1.5">
             <p>
