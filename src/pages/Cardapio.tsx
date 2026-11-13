@@ -12,35 +12,51 @@ import {
 import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from '@/data/catalog'
 import { CARDAPIO_CATEGORIAS, CardapioCard } from '@/components/cardapio/CardapioCard'
 import { CardapioPdfStage } from '@/components/cardapio/PdfStage'
-import { gerarPdfCardapio } from '@/lib/pdfCardapio'
+import { baixarPdfBlob, gerarPdfCardapio } from '@/lib/pdfCardapio'
 
 const TITULO_DOCUMENTO = 'Tem Carol no seu Natal • Coleção 2026 — Cardápio'
-
-/** Guarda o instante do último disparo automático: evita baixar o PDF duas vezes
- * (remontagem rápida da rota / StrictMode). O botão manual nunca é bloqueado. */
-let ultimoDownloadAutomatico = 0
 
 type Estado = 'preparando' | 'pronto' | 'erro'
 
 export const Cardapio: React.FC = () => {
   const [estado, setEstado] = useState<Estado>('preparando')
+  const [baixou, setBaixou] = useState(false)
   const gerandoRef = useRef(false)
+  // PDF já montado: o botão baixa esse blob direto no clique (gesto do usuário).
+  const blobRef = useRef<Blob | null>(null)
 
-  const baixarPdf = useCallback(async (automatico: boolean) => {
-    if (gerandoRef.current) return
+  const gerar = useCallback(async (): Promise<Blob | null> => {
+    if (gerandoRef.current) return null
     gerandoRef.current = true
     setEstado('preparando')
     try {
-      await gerarPdfCardapio()
-      if (automatico) ultimoDownloadAutomatico = Date.now()
+      const blob = await gerarPdfCardapio()
+      blobRef.current = blob
       setEstado('pronto')
+      return blob
     } catch (erro) {
       console.error('Falha ao gerar o PDF do cardápio:', erro)
       setEstado('erro')
+      return null
     } finally {
       gerandoRef.current = false
     }
   }, [])
+
+  const baixarAgora = useCallback(() => {
+    const blob = blobRef.current
+    if (estado === 'pronto' && blob) {
+      baixarPdfBlob(blob)
+      setBaixou(true)
+      return
+    }
+    void gerar().then((novo) => {
+      if (novo) {
+        baixarPdfBlob(novo)
+        setBaixou(true)
+      }
+    })
+  }, [estado, gerar])
 
   // O título da aba vira o nome sugerido do PDF baixado.
   useEffect(() => {
@@ -51,28 +67,23 @@ export const Cardapio: React.FC = () => {
     }
   }, [])
 
-  // Ao ENTRAR na rota (uma única vez, não em re-render), baixa o PDF automaticamente.
+  // Ao ENTRAR na rota, monta o PDF e tenta baixá-lo sozinho. Se o navegador bloquear,
+  // o botão "Baixar o PDF" (clique do usuário) entrega o mesmo arquivo.
   useEffect(() => {
-    if (Date.now() - ultimoDownloadAutomatico < 4000) {
-      setEstado('pronto')
-      return
-    }
-    let cancelado = false
-    const disparo = setTimeout(() => {
-      if (!cancelado) void baixarPdf(true)
-    }, 600)
-    return () => {
-      cancelado = true
-      clearTimeout(disparo)
-    }
-  }, [baixarPdf])
+    void gerar().then((blob) => {
+      if (blob) {
+        baixarPdfBlob(blob)
+        setBaixou(true)
+      }
+    })
+  }, [gerar])
 
   const rotuloBotao =
     estado === 'preparando'
       ? 'Preparando o PDF…'
       : estado === 'erro'
         ? 'Tentar de novo'
-        : 'Baixar cardápio em PDF'
+        : 'Baixar o PDF'
 
   return (
     <div className="relative min-h-screen w-full bg-[#FAF6EE] text-[#342822]">
@@ -90,7 +101,7 @@ export const Cardapio: React.FC = () => {
           </Link>
           <button
             type="button"
-            onClick={() => void baixarPdf(false)}
+            onClick={baixarAgora}
             disabled={estado === 'preparando'}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B3242E] hover:bg-[#8F1A22] disabled:opacity-70 disabled:cursor-wait text-[#FAF6EE] text-xs sm:text-sm font-semibold shadow-sm transition-all active:scale-95"
           >
@@ -104,10 +115,12 @@ export const Cardapio: React.FC = () => {
         </div>
         <p className="max-w-5xl mx-auto px-4 sm:px-6 pb-2 text-[11px] text-[#8A7566]">
           {estado === 'preparando'
-            ? 'O download do PDF começa sozinho assim que as fotos terminarem de carregar.'
+            ? 'Montando o PDF com as fotos. O download começa sozinho assim que ficar pronto.'
             : estado === 'erro'
-              ? 'Algo falhou ao montar o PDF. Clique no botão para tentar de novo.'
-              : 'O PDF foi baixado automaticamente. Quer de novo? É só clicar no botão acima.'}
+              ? 'Não foi possível montar o PDF (pode ser falha de rede ao carregar as fotos). Clique em "Tentar de novo".'
+              : baixou
+                ? 'PDF baixado. Se o download não apareceu, clique em "Baixar o PDF" acima.'
+                : 'O PDF está pronto. Se o navegador bloqueou o download, clique em "Baixar o PDF" acima.'}
         </p>
       </div>
 
@@ -195,7 +208,7 @@ export const Cardapio: React.FC = () => {
           <div className="mt-8 flex justify-center">
             <span className="inline-flex items-center gap-2 text-xs text-[#3E7A4E] bg-[#EAF4EC] border border-[#CFE4D4] rounded-full px-4 py-2">
               <CheckCircle2 className="w-4 h-4" />
-              PDF baixado automaticamente. Quer de novo? Use o botão lá em cima.
+              PDF pronto. Use o botão "Baixar o PDF" lá em cima para baixar de novo.
             </span>
           </div>
         )}

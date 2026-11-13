@@ -86,8 +86,24 @@ const capturar = async (elemento: HTMLElement): Promise<Captura> => {
   }
 }
 
-/** Gera o PDF do cardápio e dispara o download (save). */
-export const gerarPdfCardapio = async (): Promise<void> => {
+/**
+ * Dispara o download de um PDF já gerado. Pode ser chamado direto de um clique
+ * (gesto do usuário), que é o caminho que os navegadores não bloqueiam.
+ */
+export const baixarPdfBlob = (blob: Blob): void => {
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = NOME_ARQUIVO
+  link.rel = 'noopener'
+  document.body.appendChild(link)
+  link.click()
+  link.remove()
+  setTimeout(() => URL.revokeObjectURL(url), 60_000)
+}
+
+/** Gera o PDF do cardápio e devolve o blob (sem baixar). */
+export const gerarPdfCardapio = async (): Promise<Blob> => {
   const stage = document.getElementById('pdf-stage') as HTMLElement | null
   if (!stage) throw new Error('Stage do PDF não encontrado')
 
@@ -148,5 +164,5 @@ export const gerarPdfCardapio = async (): Promise<void> => {
     primeira = false
   }
 
-  pdf.save(NOME_ARQUIVO)
+  return pdf.output('blob')
 }
