@@ -9,6 +9,10 @@ import { CARDAPIO_CATEGORIAS, CardapioCard } from '@/components/cardapio/Cardapi
  * cada [data-pdf-block] como um bloco e pagina os blocos em folhas A4 sem cortá-los.
  */
 
+/** Inícios de cada linha de `tamanho` itens (última linha pode ficar incompleta). */
+const chunkInicio = (total: number, tamanho: number): number[] =>
+  Array.from({ length: Math.ceil(total / tamanho) }, (_, i) => i * tamanho)
+
 export const A4_LARGURA_PX = 794
 
 export const PDF_BLOCK_SELECTORS = [
@@ -64,7 +68,7 @@ export const CardapioPdfStage: React.FC = () => {
             <h2 className="font-serif text-[26px] text-[#342822] mt-1">{categoria.title}</h2>
             <p className="text-[11px] text-[#665447] mt-1.5 max-w-xl mx-auto">{categoria.intro}</p>
           </div>
-          {[0, 2].map((inicio) => {
+          {chunkInicio(categoria.items.length, 2).map((inicio) => {
             const linha = categoria.items.slice(inicio, inicio + 2)
             if (linha.length === 0) return null
             return (
